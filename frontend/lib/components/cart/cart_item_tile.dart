@@ -5,9 +5,12 @@ import '../../constants.dart';
 import '../../models/cart_item.dart';
 
 class CartItemTile extends StatelessWidget {
-  const CartItemTile({Key? key, required this.cartItem}) : super(key: key);
+  const CartItemTile(
+      {Key? key, required this.cartItem, required this.deleteItem})
+      : super(key: key);
 
   final CartItem cartItem;
+  final Function deleteItem;
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +38,9 @@ class CartItemTile extends StatelessWidget {
             Icons.delete,
             color: Colors.redAccent,
           ),
-          onPressed: () {},
+          onPressed: () {
+            deleteItem(cartItem.id);
+          },
         ),
         onTap: () {},
       ),

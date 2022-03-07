@@ -45,4 +45,18 @@ class CartProvider extends BaseProvider {
       return false;
     }
   }
+
+  Future<void> refresh() async {
+    cartItems = [];
+    await fetchCart();
+  }
+
+  Future<void> removeCartItem(int id) async {
+    print("id: ${id}");
+    final response = await delete("cartItems/$id");
+    if (response.statusCode == 200) {
+      await refresh();
+      print("refreshed");
+    }
+  }
 }

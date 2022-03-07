@@ -61,6 +61,7 @@ class CartList extends StatelessWidget {
         itemBuilder: (context, index) {
           return CartItemTile(
             cartItem: cartProvider.cartItems[index],
+            deleteItem: cartController.removeCartItem,
           );
         },
         separatorBuilder: (context, index) {

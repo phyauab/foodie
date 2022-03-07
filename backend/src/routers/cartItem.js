@@ -95,7 +95,17 @@ router.delete("/cartItems/deleteAll", async (req, res) => {
 });
 
 router.delete("/cartItems/:id", async (req, res) => {
-  const cartItem = await CartItem.destroy({});
+  try {
+    const cartItem = await CartItem.destroy({ where: { id: req.params.id } });
+
+    console.log("here");
+    if (cartItem == 0) throw "Error: cart item does not exist";
+    console.log("here2");
+
+    res.send("delete successfully");
+  } catch (e) {
+    res.status(400).send(e);
+  }
 });
 
 module.exports = router;
