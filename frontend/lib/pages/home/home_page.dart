@@ -9,12 +9,14 @@ import 'package:frontend/pages/category/category_page.dart';
 import 'package:frontend/pages/home/home_controller.dart';
 import 'package:frontend/pages/profile/profile_controller.dart';
 import 'package:frontend/providers/app_provider.dart';
+import 'package:frontend/providers/user_provider.dart';
 import 'package:get/get.dart';
 
 import '../profile/profile_page.dart';
 
 class HomePage extends GetView<HomeController> {
   final appProvider = Get.put(AppProvider());
+  final userPorvider = Get.put(UserProvider());
   @override
   Widget build(BuildContext context) {
     Get.lazyPut(() => CategoryController());

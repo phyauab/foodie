@@ -53,7 +53,15 @@ router.get("/users/all", async (req, res) => {
   }
 });
 
-router.get("/users/:id", async (req, res) => {
+router.get("/users/getMe", auth, async (req, res) => {
+  try {
+    res.send(req.user);
+  } catch (e) {
+    res.status(400).send(e);
+  }
+});
+
+router.get("/users/:id", auth, async (req, res) => {
   try {
     const user = await User.findOne({ where: { id: req.params.id } });
 
