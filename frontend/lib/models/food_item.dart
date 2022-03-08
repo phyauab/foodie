@@ -6,6 +6,9 @@ class FoodItem {
   final double price;
   final double rating;
   final String imagePath;
+  final int minCookingTime;
+  final int maxCookingTime;
+  final String description;
   final List<Category> categories;
 
   FoodItem(
@@ -14,6 +17,9 @@ class FoodItem {
       required this.price,
       required this.rating,
       required this.imagePath,
+      required this.minCookingTime,
+      required this.maxCookingTime,
+      required this.description,
       required this.categories});
 
   factory FoodItem.fromJson(Map<String, dynamic> json) {
@@ -23,6 +29,9 @@ class FoodItem {
       price: json['price'].toDouble(),
       rating: json['rating'].toDouble(),
       imagePath: json['imagePath'],
+      minCookingTime: json['minCookingTime'],
+      maxCookingTime: json['maxCookingTime'],
+      description: json['description'],
       categories: List<Category>.from(
           json["Categories"].map((x) => Category.fromJson(x))),
     );

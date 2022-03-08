@@ -25,13 +25,21 @@ class CartController extends GetxController with StateMixin<List<CartItem>> {
   Future<void> refreshCartItems() async {
     change(cartProvider.cartItems, status: RxStatus.loading());
     await cartProvider.refresh();
-    change(cartProvider.cartItems, status: RxStatus.success());
+
+    if (cartProvider.cartItems.isEmpty) {
+      change(cartProvider.cartItems, status: RxStatus.empty());
+    } else {
+      change(cartProvider.cartItems, status: RxStatus.success());
+    }
   }
 
   Future<void> removeCartItem(int id) async {
     change(cartProvider.cartItems, status: RxStatus.loading());
     await cartProvider.removeCartItem(id);
-    print("success");
-    change(cartProvider.cartItems, status: RxStatus.success());
+    if (cartProvider.cartItems.isEmpty) {
+      change(cartProvider.cartItems, status: RxStatus.empty());
+    } else {
+      change(cartProvider.cartItems, status: RxStatus.success());
+    }
   }
 }

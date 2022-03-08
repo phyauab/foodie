@@ -43,10 +43,11 @@ class MyApp extends StatelessWidget {
             page: () => FoodItemPage(),
             binding: FoodItemBinding())
       ],
-      // theme: ThemeData(
-      //     primarySwatch: Colors.amber,
-      //     primaryColor: Colors.yellow[700],
-      //     iconTheme: const IconThemeData(color: Colors.grey)),
+      theme: ThemeData(
+        primarySwatch: Colors.amber,
+        primaryColor: Colors.yellow[700],
+        iconTheme: const IconThemeData(color: Colors.grey),
+      ),
       // initialRoute: '/',
       // routes: {
       //   '/': (context) => const HomeScreen(),

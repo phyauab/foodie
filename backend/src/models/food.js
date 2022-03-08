@@ -32,6 +32,26 @@ const Food = sequelize.define(
         max: 5.0,
       },
     },
+    minCookingTime: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      validate: {
+        min: 0.0,
+        max: 60.0,
+      },
+    },
+    maxCookingTime: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      validate: {
+        min: 0.0,
+        max: 60.0,
+      },
+    },
+    description: {
+      type: DataTypes.TEXT,
+      allowNull: false,
+    },
     imagePath: {
       type: DataTypes.STRING,
       allowNull: true,

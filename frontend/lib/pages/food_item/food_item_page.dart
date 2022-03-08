@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:frontend/components/cart_item/purchase_panel.dart';
-import 'package:frontend/components/counter.dart';
+
+import 'package:frontend/components/long_button.dart';
 import 'package:frontend/constants.dart';
 import 'package:frontend/helpers/helper.dart';
-import 'package:frontend/models/food_item.dart';
+import 'package:frontend/pages/cart/cart_controller.dart';
 import 'package:frontend/pages/food_item/food_item_controller.dart';
 import 'package:get/get.dart';
+import 'package:readmore/readmore.dart';
 
 class FoodItemPage extends GetView<FoodItemController> {
   const FoodItemPage({Key? key}) : super(key: key);
@@ -82,6 +81,7 @@ class FoodItemPage extends GetView<FoodItemController> {
       height: MediaQuery.of(context).size.height,
       child: Stack(
         children: [
+          // Image
           SizedBox(
             width: MediaQuery.of(context).size.width,
             child: Image(
@@ -92,6 +92,8 @@ class FoodItemPage extends GetView<FoodItemController> {
               filterQuality: FilterQuality.high,
             ),
           ),
+
+          // white panel
           Positioned(
             bottom: 0,
             left: 0,
@@ -108,56 +110,179 @@ class FoodItemPage extends GetView<FoodItemController> {
               child: Padding(
                 padding:
                     EdgeInsets.symmetric(horizontal: defaultScreenPadding * 2),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(capitalize(controller.foodItem.name),
-                                style: const TextStyle(
-                                    fontSize: 36, fontWeight: FontWeight.w500)),
-                            // restaurant
-                            Text(
-                              'Good Restaurant',
-                              style: Theme.of(context).textTheme.caption,
-                            ),
-                          ],
-                        ),
-                        IconButton(
-                            onPressed: () {},
-                            icon: const Icon(
-                              Icons.favorite_border_outlined,
-                              color: Colors.redAccent,
-                            ))
-                      ],
-                    ),
-                    _buildCategoryChips(),
-                    RatingBarIndicator(
-                      rating: controller.foodItem.rating,
-                      itemBuilder: (context, index) => const Icon(
-                        Icons.star,
-                        color: Colors.amber,
+                child: SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const SizedBox(
+                        height: 20,
                       ),
-                      itemCount: 5,
-                      itemSize: 25.0,
-                      direction: Axis.horizontal,
-                    ),
-                    const SizedBox(
-                      height: 15,
-                    ),
-                    PurchasePanel()
-                  ],
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(capitalize(controller.foodItem.name),
+                                  style: const TextStyle(
+                                      fontSize: 36,
+                                      fontWeight: FontWeight.w500)),
+                              // restaurant
+                              Text(
+                                'Good Restaurant',
+                                style: Theme.of(context).textTheme.caption,
+                              ),
+                            ],
+                          ),
+                          Text(
+                            "\$${controller.foodItem.price.toString()}",
+                            style: TextStyle(
+                                color: Theme.of(context).primaryColor,
+                                fontSize: 28,
+                                fontWeight: FontWeight.w600),
+                          )
+                        ],
+                      ),
+                      const SizedBox(
+                        height: 15,
+                      ),
+                      _buildCategoryChips(),
+                      const SizedBox(
+                        height: 15,
+                      ),
+                      _buildHorizontalInfo(context),
+                      const SizedBox(
+                        height: 15,
+                      ),
+                      ReadMoreText(
+                        controller.foodItem.description,
+                        trimLines: 3,
+                        style:
+                            const TextStyle(color: Colors.black, height: 1.5),
+                        colorClickableText: Colors.pink,
+                        trimMode: TrimMode.Line,
+                        trimCollapsedText: 'Show more',
+                        trimExpandedText: 'Show less',
+                        moreStyle: const TextStyle(
+                            fontSize: 14, fontWeight: FontWeight.bold),
+                        lessStyle: const TextStyle(
+                            fontSize: 14, fontWeight: FontWeight.bold),
+                      ),
+                      const SizedBox(
+                        height: 15,
+                      ),
+                      _buildCounter(context),
+                      const SizedBox(
+                        height: 15,
+                      ),
+                      LongButton(
+                          text: 'Add To Cart',
+                          icon: Icons.shopping_cart,
+                          func: () {
+                            controller.addToCart();
+                            const snackBar = SnackBar(
+                              content: Text('Item added!'),
+                            );
+
+                            ScaffoldMessenger.of(context)
+                                .showSnackBar(snackBar);
+
+                            final cartController = Get.put(CartController());
+                            cartController.refreshCartItems();
+                            Get.back();
+                          }),
+                      const SizedBox(
+                        height: 15,
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
           )
+        ],
+      ),
+    );
+  }
+
+  Widget _buildHorizontalInfo(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: [
+        Row(
+          children: [
+            const Icon(
+              Icons.star,
+              color: Colors.yellow,
+            ),
+            const SizedBox(
+              width: 5,
+            ),
+            Text(
+              "${controller.foodItem.rating}/5",
+              style: const TextStyle(fontWeight: FontWeight.w600),
+            )
+          ],
+        ),
+        Row(
+          children: [
+            const Icon(
+              Icons.lock_clock,
+              color: Colors.orange,
+            ),
+            const SizedBox(
+              width: 5,
+            ),
+            Text(
+              "${controller.foodItem.minCookingTime} - ${controller.foodItem.maxCookingTime} mins",
+              style: const TextStyle(fontWeight: FontWeight.w600),
+            )
+          ],
+        )
+      ],
+    );
+  }
+
+  Widget _buildCounter(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+          color: Colors.orange,
+          borderRadius: BorderRadius.circular(defaultBorderRadius)),
+      height: 50,
+      width: MediaQuery.of(context).size.width,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          IconButton(
+            onPressed: () {
+              controller.quantity++;
+            },
+            icon: const Icon(
+              Icons.add,
+              color: Colors.white,
+            ),
+          ),
+          Obx(
+            () => Text(
+              controller.quantity.toString(),
+              style: const TextStyle(
+                color: Colors.white,
+                fontSize: 18,
+              ),
+            ),
+          ),
+          IconButton(
+            onPressed: () {
+              if (controller.quantity.value == 1) {
+                return;
+              }
+              controller.quantity--;
+            },
+            icon: const Icon(
+              Icons.remove,
+              color: Colors.white,
+            ),
+          ),
         ],
       ),
     );

@@ -30,24 +30,7 @@ class FoodItemController extends GetxController with StateMixin<FoodItem> {
     }
   }
 
-  void addQuantity() {
-    quantity++;
-    updateTotalAmount();
-    print(quantity);
-  }
-
-  void reduceQuantity() {
-    if (quantity == 1) return;
-    quantity--;
-    updateTotalAmount();
-  }
-
-  void updateTotalAmount() {
-    totalAmount = RxDouble(quantity.value * foodItem.price);
-    print(totalAmount);
-  }
-
-  void addToCart(int foodId, int amount) async {
-    cartProvider.addToCart(foodId, amount);
+  void addToCart() async {
+    cartProvider.addToCart(foodItem.id, quantity.value);
   }
 }
