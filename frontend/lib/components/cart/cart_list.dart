@@ -4,25 +4,17 @@ import 'package:frontend/providers/cart_provider.dart';
 import 'package:frontend/providers/user_provider.dart';
 import 'package:get/get.dart';
 
+import '../../constants.dart';
 import '../../pages/cart/cart_controller.dart';
 
 class CartList extends StatelessWidget {
   CartList({Key? key}) : super(key: key);
 
-  final userProvider = Get.put(UserProvider());
   final cartController = Get.put(CartController());
   final cartProvider = Get.put(CartProvider());
 
   @override
   Widget build(BuildContext context) {
-    if (!userProvider.isLoggedIn.value) {
-      return const Expanded(
-        child: Center(
-          child: Text("Please login first"),
-        ),
-      );
-    }
-
     return Expanded(
       child: RefreshIndicator(
         onRefresh: cartController.refreshCartItems,
@@ -58,15 +50,16 @@ class CartList extends StatelessWidget {
 
   Widget _buildCartList(BuildContext context) {
     return ListView.separated(
-        itemBuilder: (context, index) {
-          return CartItemTile(
-            cartItem: cartProvider.cartItems[index],
-            deleteItem: cartController.removeCartItem,
-          );
-        },
-        separatorBuilder: (context, index) {
-          return const SizedBox(height: 10);
-        },
-        itemCount: cartProvider.cartItems.length);
+      itemBuilder: (context, index) {
+        return CartItemTile(
+          cartItem: cartProvider.cartItems[index],
+          deleteItem: cartController.removeCartItem,
+        );
+      },
+      separatorBuilder: (context, index) {
+        return const SizedBox(height: 10);
+      },
+      itemCount: cartProvider.cartItems.length,
+    );
   }
 }

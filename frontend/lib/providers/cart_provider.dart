@@ -47,8 +47,10 @@ class CartProvider extends BaseProvider {
   }
 
   Future<void> refresh() async {
+    print("in cart provider refresh.");
     cartItems = [];
     await fetchCart();
+    print("new length: " + cartItems.length.toString());
   }
 
   Future<void> removeCartItem(int id) async {

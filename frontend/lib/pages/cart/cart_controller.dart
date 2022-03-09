@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 
 class CartController extends GetxController with StateMixin<List<CartItem>> {
   final cartProvider = Get.put(CartProvider());
+  var total = 0.0.obs;
 
   @override
   void onInit() {
@@ -20,6 +21,7 @@ class CartController extends GetxController with StateMixin<List<CartItem>> {
     } else {
       change(cartProvider.cartItems, status: RxStatus.success());
     }
+    calculateTotal();
   }
 
   Future<void> refreshCartItems() async {
@@ -31,6 +33,7 @@ class CartController extends GetxController with StateMixin<List<CartItem>> {
     } else {
       change(cartProvider.cartItems, status: RxStatus.success());
     }
+    calculateTotal();
   }
 
   Future<void> removeCartItem(int id) async {
@@ -40,6 +43,14 @@ class CartController extends GetxController with StateMixin<List<CartItem>> {
       change(cartProvider.cartItems, status: RxStatus.empty());
     } else {
       change(cartProvider.cartItems, status: RxStatus.success());
+    }
+    calculateTotal();
+  }
+
+  void calculateTotal() {
+    total.value = 0.0;
+    for (CartItem cartItem in cartProvider.cartItems) {
+      total.value += cartItem.food.price * cartItem.amount;
     }
   }
 }

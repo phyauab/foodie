@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/components/long_button.dart';
 import 'package:get/get.dart';
 
 import '../../constants.dart';
@@ -13,30 +14,28 @@ class Redirect extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Text(
-            "Foodie login to see more!",
+            "Login to see more!",
             style: Theme.of(context).textTheme.headline5,
           ),
           const SizedBox(
             height: 50,
           ),
-          SizedBox(
-            width: MediaQuery.of(context).size.width * longButtonToScreenRatio,
-            child: ElevatedButton.icon(
-              onPressed: () {
-                Get.toNamed("/login");
-              },
-              icon: const Icon(Icons.login),
-              label: const Text("Login"),
-            ),
+          LongButton(
+            text: 'Login',
+            icon: Icons.login,
+            func: () {
+              Get.toNamed("/login");
+            },
           ),
-          SizedBox(
-            width: MediaQuery.of(context).size.width * longButtonToScreenRatio,
-            child: ElevatedButton.icon(
-              onPressed: () {},
-              icon: const Icon(Icons.app_registration_rounded),
-              label: const Text("Register"),
-            ),
-          )
+          const SizedBox(
+            height: 15,
+          ),
+          LongButton(
+            text: 'Register',
+            icon: Icons.login,
+            func: () {},
+            isInverted: true,
+          ),
         ],
       ),
     );
