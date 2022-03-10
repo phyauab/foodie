@@ -33,10 +33,10 @@ class FoodItemsPage extends GetView<FoodItemsController> {
                   padding:
                       EdgeInsets.symmetric(horizontal: defaultScreenPadding),
                   child: ListView.builder(
-                      itemCount: controller.foodItemsProvider.foodItems.length,
-                      itemBuilder: ((context, index) => FoodItemTile(
-                          food:
-                              controller.foodItemsProvider.foodItems[index]))),
+                    itemCount: controller.foodItemsProvider.foodItems.length,
+                    itemBuilder: ((context, index) => FoodItemTile(
+                        food: controller.foodItemsProvider.foodItems[index])),
+                  ),
                 ),
                 onLoading: const CircularProgressIndicator(
                   semanticsLabel: 'Fetching',

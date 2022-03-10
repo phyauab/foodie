@@ -8,6 +8,7 @@ import 'package:frontend/pages/home/home_binding.dart';
 import 'package:frontend/pages/home/home_page.dart';
 import 'package:frontend/pages/login/login_binding.dart';
 import 'package:frontend/pages/login/login_screen.dart';
+import 'package:frontend/providers/user_provider.dart';
 import 'package:get/get.dart';
 
 void main() {
@@ -20,6 +21,7 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    final userProvider = Get.put(UserProvider());
     return GetMaterialApp(
       title: 'Flutter Demo', initialRoute: '/',
       getPages: [

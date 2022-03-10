@@ -34,6 +34,7 @@ class UserProvider extends BaseProvider {
       response.body["token"] = token;
       user = User.fromJson(response.body);
       isLoggedIn.value = true;
+      print("updated loggin: ${isLoggedIn}");
     }
   }
 

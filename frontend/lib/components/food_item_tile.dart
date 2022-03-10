@@ -54,7 +54,7 @@ class FoodItemTile extends StatelessWidget {
                             bottomLeft: Radius.circular(10)),
                         child: Image.network(
                           food.imagePath,
-                          fit: BoxFit.contain,
+                          fit: BoxFit.cover,
                         ),
                       ),
                     ),

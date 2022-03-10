@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/components/cart/cart_list.dart';
 import 'package:frontend/components/cart/purchase_panel.dart';
-import 'package:frontend/components/long_button.dart';
 import 'package:frontend/components/page_header.dart';
 import 'package:frontend/constants.dart';
 import 'package:get/get.dart';
-import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 import '../../providers/user_provider.dart';
 import 'cart_controller.dart';

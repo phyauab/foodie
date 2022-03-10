@@ -8,48 +8,47 @@ import 'package:get/get.dart';
 class CategoryPage extends GetView<CategoryController> {
   const CategoryPage({Key? key}) : super(key: key);
 
-  Future<void> _refresh() {
-    return Future.delayed(const Duration(seconds: 0));
-  }
-
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: defaultScreenPadding),
-      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-        PageHeader(title: controller.title),
-        Expanded(
-          child: RefreshIndicator(
-            onRefresh: controller.refreshCategories,
-            child: controller.obx(
-              (state) => _buildCategoryGridView(context),
-              onLoading: const CircularProgressIndicator(
-                semanticsLabel: 'Fetching',
-              ),
-              onEmpty: ListView(
-                children: const [
-                  Padding(
-                    padding: EdgeInsets.all(20),
-                    child: Center(
-                      child: Text('No categories found, pull to refresh...'),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          PageHeader(title: controller.title),
+          Expanded(
+            child: RefreshIndicator(
+              onRefresh: controller.refreshCategories,
+              child: controller.obx(
+                (state) => _buildCategoryGridView(context),
+                onLoading: const CircularProgressIndicator(
+                  semanticsLabel: 'Fetching',
+                ),
+                onEmpty: ListView(
+                  children: const [
+                    Padding(
+                      padding: EdgeInsets.all(20),
+                      child: Center(
+                        child: Text('No categories found, pull to refresh...'),
+                      ),
                     ),
-                  ),
-                ],
-              ),
-              onError: (error) => ListView(
-                children: const [
-                  Padding(
-                    padding: EdgeInsets.all(20),
-                    child: Center(
-                      child: Text('An error occured, pull to refresh...'),
+                  ],
+                ),
+                onError: (error) => ListView(
+                  children: const [
+                    Padding(
+                      padding: EdgeInsets.all(20),
+                      child: Center(
+                        child: Text('An error occured, pull to refresh...'),
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
-          ),
-        )
-      ]),
+          )
+        ],
+      ),
     );
   }
 
@@ -87,12 +86,14 @@ class CategoryPage extends GetView<CategoryController> {
             height: 300,
             width: double.infinity,
             decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(25.0),
-                image: DecorationImage(
-                    fit: BoxFit.cover,
-                    colorFilter: ColorFilter.mode(
-                        category.color.withOpacity(0.3), BlendMode.dstATop),
-                    image: NetworkImage(category.imagePath))),
+              borderRadius: BorderRadius.circular(25.0),
+              image: DecorationImage(
+                fit: BoxFit.cover,
+                colorFilter: ColorFilter.mode(
+                    category.color.withOpacity(0.3), BlendMode.dstATop),
+                image: NetworkImage(category.imagePath),
+              ),
+            ),
             child: Padding(
               padding: const EdgeInsets.all(10.0),
               child: Center(

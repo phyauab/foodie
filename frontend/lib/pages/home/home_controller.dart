@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/pages/food_items/food_items_controller.dart';
+import 'package:frontend/providers/food_items_provider.dart';
 import 'package:get/get.dart';
 
 class HomeController extends GetxController {
   static HomeController get to => Get.find();
   final PageController pageController = PageController();
+  final foodItemsProvider = Get.put(FoodItemsProvider());
 
   var selectedTabIndex = 0.obs;
 
@@ -13,5 +16,10 @@ class HomeController extends GetxController {
       pageController.animateToPage(index,
           duration: const Duration(milliseconds: 500), curve: Curves.ease);
     }
+  }
+
+  Future fetchPopularFoodItems() async {
+    print("controller popular");
+    return foodItemsProvider.fetchPopularFoodItems();
   }
 }

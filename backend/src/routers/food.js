@@ -27,6 +27,22 @@ router.post("/food", async (req, res) => {
 });
 
 // Read
+router.get("/food?", async (req, res) => {
+  try {
+    let filter = {};
+    if (req.query) {
+      if (req.query.popular) {
+        // since req.body.popular is string, so it needs to be converted to boolean
+        filter.popular = Boolean(req.query.popular);
+      }
+    }
+    const food = await Food.findAll({ where: filter, include: [Category] });
+    res.send(food);
+  } catch (e) {
+    res.status(400).send(e);
+  }
+});
+
 router.get("/food/:id", async (req, res) => {
   try {
     const food = await Food.findOne({

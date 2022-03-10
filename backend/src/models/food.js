@@ -56,6 +56,10 @@ const Food = sequelize.define(
       type: DataTypes.STRING,
       allowNull: true,
     },
+    popular: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+    },
   },
   {
     freezeTableName: true,

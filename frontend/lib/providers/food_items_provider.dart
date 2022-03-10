@@ -18,6 +18,18 @@ class FoodItemsProvider extends BaseProvider {
     }
   }
 
+  Future fetchPopularFoodItems() async {
+    print("called fetchPopularFoodItems");
+    Map<String, dynamic> query = {"popular": "true"};
+
+    var response = await get('food', query: query);
+    if (response.statusCode == 200) {
+      return (response.body as List<dynamic>)
+          .map((c) => FoodItem.fromJson(c))
+          .toList();
+    }
+  }
+
   List<FoodItem> getFoodItems() {
     return foodItems;
   }
