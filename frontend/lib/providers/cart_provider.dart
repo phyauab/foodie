@@ -37,19 +37,17 @@ class CartProvider extends BaseProvider {
     };
 
     final response = await post("cartItems", body);
-    if (response.statusCode == 200) {
-      return true;
-    } else {
-      return false;
-    }
+    return response.statusCode == 200;
   }
 
   Future<bool> removeCartItem(int id) async {
     final response = await delete("cartItems/$id");
-    if (response.statusCode == 200) {
-      return true;
-    } else {
-      return false;
-    }
+    return response.statusCode == 200;
+  }
+
+  Future<bool> updateQuantity(int id, int quantity) async {
+    Map<String, dynamic> body = {"amount": quantity};
+    final response = await patch("cartItems/$id", body);
+    return response.statusCode == 200;
   }
 }

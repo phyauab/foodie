@@ -40,6 +40,23 @@ class CartController extends GetxController with StateMixin<List<CartItem>> {
     }
   }
 
+  Future<void> updateQuantity(int id, int quantity) async {
+    change(cartItems, status: RxStatus.loading());
+    bool isSuccess = await _cartProvider.updateQuantity(id, quantity);
+    if (isSuccess) {
+      CartItem cartItem = cartItems.firstWhere((item) => item.id == id);
+      cartItem.amount = quantity;
+      _calculateTotal();
+      if (cartItems.isEmpty) {
+        change(cartItems, status: RxStatus.empty());
+      } else {
+        change(cartItems, status: RxStatus.success());
+      }
+    } else {
+      change(cartItems, status: RxStatus.success());
+    }
+  }
+
   void _calculateTotal() {
     total.value = 0.0;
     for (CartItem cartItem in cartItems) {

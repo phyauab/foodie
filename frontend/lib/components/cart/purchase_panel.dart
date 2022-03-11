@@ -30,7 +30,7 @@ class PurchasePanel extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           Text(
-            "\$${total.toString()}",
+            "\$${total.toStringAsFixed(1)}",
             style: const TextStyle(
                 color: Colors.green, fontSize: 20, fontWeight: FontWeight.w600),
           ),

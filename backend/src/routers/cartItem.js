@@ -1,5 +1,6 @@
 const express = require("express");
 const router = new express.Router();
+const auth = require("../middlewares/auth");
 const CartItem = require("../models/cartItem");
 const User = require("../models/user");
 const Food = require("../models/food");
@@ -75,6 +76,28 @@ router.get("/cartItems/user/:id", async (req, res) => {
     });
 
     res.send(cartItems);
+  } catch (e) {
+    res.status(400).send(e);
+  }
+});
+
+// Update
+router.patch("/cartItems/:id", auth, async (req, res) => {
+  try {
+    let newContent;
+    if (req.body) {
+      newContent = req.body;
+    }
+
+    const cartItem = await CartItem.update(newContent, {
+      where: {
+        id: req.params.id,
+      },
+    });
+
+    if (!cartItem) throw "Error: item not found";
+
+    res.send(cartItem);
   } catch (e) {
     res.status(400).send(e);
   }
