@@ -22,7 +22,6 @@ import '../profile/profile_page.dart';
 
 class HomePage extends GetView<HomeController> {
   final appProvider = Get.put(AppProvider());
-  final userPorvider = Get.put(UserProvider());
   @override
   Widget build(BuildContext context) {
     Get.lazyPut(() => CategoryController());

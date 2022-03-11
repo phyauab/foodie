@@ -2,6 +2,7 @@ const Category = require("../category");
 const Food = require("../food");
 const User = require("../user");
 const CartItem = require("../cartItem");
+const Transaction = require("../transaction");
 const sequelize = require("../../db/sequelize");
 
 function defineRelationships() {
@@ -21,6 +22,10 @@ function defineRelationships() {
 
   Food.hasMany(CartItem);
   CartItem.belongsTo(Food);
+
+  // transaction
+  User.hasMany(Transaction);
+  Transaction.belongsTo(User);
 }
 
 module.exports = defineRelationships;

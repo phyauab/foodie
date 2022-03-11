@@ -4,8 +4,8 @@ class CartItem {
   CartItem({required this.id, required this.amount, required this.food});
 
   final int id;
-  int amount;
   final FoodItem food;
+  int amount;
 
   factory CartItem.fromJson(Map<String, dynamic> json) {
     return CartItem(

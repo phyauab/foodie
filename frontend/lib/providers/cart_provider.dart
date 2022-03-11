@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:frontend/controllers/user_controller.dart';
 import 'package:frontend/models/cart_item.dart';
 import 'package:frontend/models/user.dart';
 import 'package:frontend/providers/base.dart';
@@ -8,14 +9,15 @@ import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 
 class CartProvider extends BaseProvider {
-  final userProvider = Get.put(UserProvider());
+  final _userController = Get.put(UserController());
 
   Future<List<CartItem>> fetchCart() async {
-    if (userProvider.user == null) {
+    if (_userController.user.value == null) {
       return [];
     }
 
-    final response = await get("cartItems/user/${userProvider.user?.id}");
+    final response =
+        await get("cartItems/user/${_userController.user.value?.id}");
 
     if (response.statusCode == 200) {
       return (response.body as List<dynamic>)
@@ -26,13 +28,13 @@ class CartProvider extends BaseProvider {
   }
 
   Future<bool> addToCart(int foodId, int amount) async {
-    if (userProvider.user == null) {
+    if (_userController.user.value == null) {
       return false;
     }
 
     Map<String, int> body = {
       "amount": amount,
-      "userId": userProvider.user!.id,
+      "userId": _userController.user.value!.id,
       "foodId": foodId
     };
 

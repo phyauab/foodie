@@ -1,4 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/controllers/user_controller.dart';
+import 'package:frontend/pages/add_balance/add_balance_binding.dart';
+import 'package:frontend/pages/add_balance/add_balance_page.dart';
+import 'package:frontend/pages/wallet/wallet_binding.dart';
+import 'package:frontend/pages/wallet/wallet_page.dart';
 import 'package:frontend/pages/food_item/food_item_binding.dart';
 import 'package:frontend/pages/food_item/food_item_page.dart';
 import 'package:frontend/pages/food_items/food_items_binding.dart';
@@ -10,6 +15,7 @@ import 'package:frontend/pages/login/login_binding.dart';
 import 'package:frontend/pages/login/login_screen.dart';
 import 'package:frontend/pages/register/register_binding.dart';
 import 'package:frontend/pages/register/register_page.dart';
+import 'package:frontend/pages/wallet/wallet_page.dart';
 import 'package:frontend/providers/user_provider.dart';
 import 'package:get/get.dart';
 
@@ -23,7 +29,7 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    final userProvider = Get.put(UserProvider());
+    Get.put(UserController());
     return GetMaterialApp(
       title: 'Flutter Demo', initialRoute: '/',
       getPages: [
@@ -48,9 +54,20 @@ class MyApp extends StatelessWidget {
           binding: FoodItemsBinding(),
         ),
         GetPage(
-            name: '/food/:id',
-            page: () => FoodItemPage(),
-            binding: FoodItemBinding())
+          name: '/food/:id',
+          page: () => FoodItemPage(),
+          binding: FoodItemBinding(),
+        ),
+        GetPage(
+          name: "/wallet",
+          page: () => WalletPage(),
+          binding: WalletBinding(),
+        ),
+        GetPage(
+          name: "/addBalance",
+          page: () => AddBalancePage(),
+          binding: AddBalanceBinding(),
+        )
       ],
       theme: ThemeData(
         primarySwatch: Colors.amber,

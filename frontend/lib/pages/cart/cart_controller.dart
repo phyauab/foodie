@@ -1,3 +1,4 @@
+import 'package:frontend/controllers/user_controller.dart';
 import 'package:frontend/models/cart_item.dart';
 import 'package:frontend/providers/cart_provider.dart';
 import 'package:frontend/providers/user_provider.dart';
@@ -5,7 +6,7 @@ import 'package:get/get.dart';
 
 class CartController extends GetxController with StateMixin<List<CartItem>> {
   final _cartProvider = Get.put(CartProvider());
-  final _userProvider = Get.put(UserProvider());
+  final _userController = Get.put(UserController());
   List<CartItem> cartItems = <CartItem>[].obs;
   var total = 0.0.obs;
   var isMakePaymentDisabled = false.obs;
@@ -67,8 +68,9 @@ class CartController extends GetxController with StateMixin<List<CartItem>> {
   Future<void> makePayment() async {}
 
   void _updateIsMakePaymentDisabled() {
-    if (_userProvider.user != null) {
-      isMakePaymentDisabled.value = _userProvider.user!.balance < total.value;
+    if (_userController.user.value != null) {
+      isMakePaymentDisabled.value =
+          _userController.user.value!.balance < total.value;
     } else {
       isMakePaymentDisabled.value = true;
     }

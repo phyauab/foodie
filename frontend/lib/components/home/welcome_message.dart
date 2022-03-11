@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/constants.dart';
+import 'package:frontend/controllers/user_controller.dart';
 import 'package:frontend/providers/user_provider.dart';
 import 'package:get/get.dart';
 
@@ -9,6 +10,7 @@ class WelcomeMessage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final userProvider = Get.put(UserProvider());
+    final _userController = Get.put(UserController());
 
     return Container(
       decoration: BoxDecoration(
@@ -23,7 +25,7 @@ class WelcomeMessage extends StatelessWidget {
         padding: EdgeInsets.symmetric(
             vertical: 40, horizontal: defaultScreenPadding),
         child: Obx(
-          (() => userProvider.isLoggedIn.value
+          (() => _userController.isLoggedIn.value
               ? Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -39,7 +41,7 @@ class WelcomeMessage extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          "${userProvider.user!.username}!",
+                          "${_userController.user.value!.username}!",
                           style: const TextStyle(
                             fontSize: 22,
                             fontWeight: FontWeight.w600,

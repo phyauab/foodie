@@ -4,6 +4,8 @@ import 'package:frontend/providers/user_provider.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 
+import '../controllers/user_controller.dart';
+
 class CustomDrawer extends StatefulWidget {
   const CustomDrawer({Key? key}) : super(key: key);
 
@@ -14,7 +16,7 @@ class CustomDrawer extends StatefulWidget {
 class _CustomDrawerState extends State<CustomDrawer> {
   String name = 'asd';
   double balance = 194.3;
-  final userProvider = Get.put(UserProvider());
+  final _userController = Get.put(UserController());
 
   @override
   Widget build(BuildContext context) {
@@ -38,8 +40,8 @@ class _CustomDrawerState extends State<CustomDrawer> {
                     height: 10,
                   ),
                   Text(
-                    userProvider.user != null
-                        ? userProvider.user!.username
+                    _userController.user.value != null
+                        ? _userController.user.value!.username
                         : 'username',
                     style: const TextStyle(color: Colors.white, fontSize: 20),
                   ),

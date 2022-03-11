@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/constants.dart';
+import 'package:frontend/controllers/user_controller.dart';
 import 'package:frontend/pages/profile/profile_controller.dart';
 import 'package:get/get.dart';
 
@@ -11,6 +12,7 @@ class Menu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var controller = Get.put(ProfileController());
+    final _userController = Get.put(UserController());
 
     List<MenuItem> menuItems = [
       MenuItem(
@@ -20,10 +22,12 @@ class Menu extends StatelessWidget {
         func: () {},
       ),
       MenuItem(
-        iconData: Icons.add,
+        iconData: Icons.account_balance_wallet,
         title: "Add Balance",
         color: Colors.orange,
-        func: () {},
+        func: () {
+          Get.toNamed("/wallet");
+        },
       ),
       MenuItem(
         iconData: Icons.update,
@@ -35,7 +39,7 @@ class Menu extends StatelessWidget {
         iconData: Icons.logout,
         title: "Logout",
         color: Colors.purple,
-        func: controller.userProvider.logout,
+        func: _userController.logout,
       ),
     ];
     return Expanded(

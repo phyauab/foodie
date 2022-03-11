@@ -7,11 +7,13 @@ const userRouter = require("./routers/user");
 const categoryRouter = require("./routers/category");
 const foodRouter = require("./routers/food");
 const cartItemRouter = require("./routers/cartItem");
+const transactionRouter = require("./routers/transaction");
 
 app.use(express.json());
 app.use(userRouter);
 app.use(categoryRouter);
 app.use(foodRouter);
 app.use(cartItemRouter);
+app.use(transactionRouter);
 
 module.exports = app;

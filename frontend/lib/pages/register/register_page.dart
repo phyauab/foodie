@@ -88,31 +88,6 @@ class RegisterPage extends GetView<RegisterController> {
                 },
               ),
               const SizedBox(height: 10),
-              // SizedBox(
-              //   width: double.infinity,
-              //   child: ElevatedButton.icon(
-              //     onPressed: () async {
-              //       if (_formKey.currentState!.validate()) {
-              //         _formKey.currentState!.save();
-              //         bool isRegisterSuccess = await controller.register();
-              //         if (isRegisterSuccess) {
-              //           Get.back();
-              //         } else {
-              //           _showMyDialog(context);
-              //         }
-              //       }
-              //     },
-              //     child: const Text(
-              //       'Register',
-              //       style: TextStyle(color: Colors.white),
-              //     ),
-              //     style: ButtonStyle(
-              //       padding: MaterialStateProperty.all<EdgeInsets>(
-              //         const EdgeInsets.all(14),
-              //       ),
-              //     ),
-              //   ),
-              // )
               LongButton(
                   text: "Register",
                   icon: Icons.app_registration_rounded,
@@ -140,18 +115,17 @@ class RegisterPage extends GetView<RegisterController> {
       barrierDismissible: false, // user must tap button!
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text('AlertDialog Title'),
+          title: const Text('Invalid Input'),
           content: SingleChildScrollView(
             child: ListBody(
               children: const <Widget>[
-                Text('This is a demo alert dialog.'),
-                Text('Would you like to approve of this message?'),
+                Text('Register failed'),
               ],
             ),
           ),
           actions: <Widget>[
             TextButton(
-              child: const Text('Approve'),
+              child: const Text('I get it'),
               onPressed: () {
                 Navigator.of(context).pop();
               },

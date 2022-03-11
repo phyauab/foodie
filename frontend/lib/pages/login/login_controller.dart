@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/controllers/user_controller.dart';
 import 'package:frontend/providers/user_provider.dart';
 import 'package:get/get.dart';
 
 import '../cart/cart_controller.dart';
 
 class LoginController extends GetxController {
-  final userProvider = Get.put(UserProvider());
-  final cartController = Get.put(CartController());
+  final _userController = Get.put(UserController());
+  final _cartController = Get.put(CartController());
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   var username = "".obs;
   var password = "".obs;
@@ -17,10 +18,10 @@ class LoginController extends GetxController {
   }
 
   Future<bool> login() async {
-    await userProvider.login(username.value, password.value);
-    if (userProvider.isLoggedIn.value) {
-      cartController.fetchCartItems();
+    await _userController.login(username.value, password.value);
+    if (_userController.isLoggedIn.value) {
+      _cartController.fetchCartItems();
     }
-    return userProvider.user != null;
+    return _userController.user.value != null;
   }
 }
