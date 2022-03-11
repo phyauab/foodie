@@ -15,7 +15,7 @@ class UserProvider extends BaseProvider {
     getMe();
   }
 
-  Future<void> login(String username, String password) async {
+  Future<bool> login(String username, String password) async {
     Map<String, String> body = {'username': username, "password": password};
     final response = await post("users/login", body);
 
@@ -23,7 +23,20 @@ class UserProvider extends BaseProvider {
       user = User.fromJson(response.body);
       await storage.write(key: 'token', value: user?.token);
       isLoggedIn.value = true;
+      return true;
     }
+
+    return false;
+  }
+
+  Future<bool> register(String username, String password, String email) async {
+    Map<String, String> body = {
+      'username': username,
+      "password": password,
+      "email": email
+    };
+    final response = await post("users/register", body);
+    return response.statusCode == 200;
   }
 
   Future<void> getMe() async {

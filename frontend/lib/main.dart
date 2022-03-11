@@ -8,6 +8,8 @@ import 'package:frontend/pages/home/home_binding.dart';
 import 'package:frontend/pages/home/home_page.dart';
 import 'package:frontend/pages/login/login_binding.dart';
 import 'package:frontend/pages/login/login_screen.dart';
+import 'package:frontend/pages/register/register_binding.dart';
+import 'package:frontend/pages/register/register_page.dart';
 import 'package:frontend/providers/user_provider.dart';
 import 'package:get/get.dart';
 
@@ -34,6 +36,11 @@ class MyApp extends StatelessWidget {
           name: "/login",
           page: () => LoginPage(),
           binding: LoginBinding(),
+        ),
+        GetPage(
+          name: "/register",
+          page: () => RegisterPage(),
+          binding: RegisterBinding(),
         ),
         GetPage(
           name: '/food/categories/:id',

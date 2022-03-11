@@ -32,8 +32,10 @@ class Redirect extends StatelessWidget {
           ),
           LongButton(
             text: 'Register',
-            icon: Icons.login,
-            func: () {},
+            icon: Icons.app_registration,
+            func: () {
+              Get.toNamed("/register");
+            },
             isInverted: true,
           ),
         ],

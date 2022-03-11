@@ -13,6 +13,9 @@ router.post("/users/register", async (req, res) => {
     if (!req.body.email || !validator.isEmail(req.body.email))
       throw "Error: Invalid Email";
 
+    console.log("---------PASSWORD---------");
+    console.log(req.body.password);
+
     const user = await User.create(req.body);
 
     if (user == null) throw "Error: failed to create user";
