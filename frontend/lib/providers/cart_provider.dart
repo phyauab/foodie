@@ -50,4 +50,8 @@ class CartProvider extends BaseProvider {
     final response = await patch("cartItems/$id", body);
     return response.statusCode == 200;
   }
+
+  Future<bool> makePayment() async {
+    return true;
+  }
 }

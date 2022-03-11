@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:frontend/constants.dart';
 
 class PurchasePanel extends StatelessWidget {
-  const PurchasePanel({Key? key, required this.total}) : super(key: key);
+  PurchasePanel({Key? key, required this.total, required this.makePayment})
+      : super(key: key);
 
   final double total;
+  Function()? makePayment;
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +47,7 @@ class PurchasePanel extends StatelessWidget {
                   ),
                 ),
               ),
-              onPressed: () {},
+              onPressed: makePayment,
               icon: const Icon(
                 Icons.payment,
                 color: Colors.white,

@@ -29,6 +29,9 @@ class CartPage extends GetView<CartController> {
             Obx(
               () => PurchasePanel(
                 total: controller.total.value,
+                makePayment: controller.isMakePaymentDisabled.value
+                    ? null
+                    : controller.makePayment,
               ),
             )
           ]

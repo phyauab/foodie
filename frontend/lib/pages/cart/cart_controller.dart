@@ -1,11 +1,14 @@
 import 'package:frontend/models/cart_item.dart';
 import 'package:frontend/providers/cart_provider.dart';
+import 'package:frontend/providers/user_provider.dart';
 import 'package:get/get.dart';
 
 class CartController extends GetxController with StateMixin<List<CartItem>> {
   final _cartProvider = Get.put(CartProvider());
+  final _userProvider = Get.put(UserProvider());
   List<CartItem> cartItems = <CartItem>[].obs;
   var total = 0.0.obs;
+  var isMakePaymentDisabled = false.obs;
 
   @override
   void onInit() {
@@ -22,6 +25,7 @@ class CartController extends GetxController with StateMixin<List<CartItem>> {
       change(cartItems, status: RxStatus.success());
     }
     _calculateTotal();
+    _updateIsMakePaymentDisabled();
   }
 
   Future<void> removeCartItem(int id) async {
@@ -38,6 +42,7 @@ class CartController extends GetxController with StateMixin<List<CartItem>> {
     } else {
       change(cartItems, status: RxStatus.success());
     }
+    _updateIsMakePaymentDisabled();
   }
 
   Future<void> updateQuantity(int id, int quantity) async {
@@ -47,6 +52,8 @@ class CartController extends GetxController with StateMixin<List<CartItem>> {
       CartItem cartItem = cartItems.firstWhere((item) => item.id == id);
       cartItem.amount = quantity;
       _calculateTotal();
+      _updateIsMakePaymentDisabled();
+
       if (cartItems.isEmpty) {
         change(cartItems, status: RxStatus.empty());
       } else {
@@ -54,6 +61,16 @@ class CartController extends GetxController with StateMixin<List<CartItem>> {
       }
     } else {
       change(cartItems, status: RxStatus.success());
+    }
+  }
+
+  Future<void> makePayment() async {}
+
+  void _updateIsMakePaymentDisabled() {
+    if (_userProvider.user != null) {
+      isMakePaymentDisabled.value = _userProvider.user!.balance < total.value;
+    } else {
+      isMakePaymentDisabled.value = true;
     }
   }
 
