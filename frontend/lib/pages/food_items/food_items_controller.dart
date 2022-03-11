@@ -27,6 +27,7 @@ class FoodItemsController extends GetxController
     }
   }
 
+  // TODO: There can be no element when clicking popular items
   FoodItem getFoodItem(int id) {
     return foodItems.firstWhere((item) => item.id == id);
   }

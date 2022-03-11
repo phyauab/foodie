@@ -1,16 +1,13 @@
 import 'package:frontend/controllers/user_controller.dart';
-import 'package:frontend/models/transaction.dart';
 import 'package:frontend/pages/wallet/wallet_controller.dart';
 import 'package:frontend/providers/transaction_provider.dart';
 import 'package:get/get.dart';
 
-import '../../providers/user_provider.dart';
-
 class AddBalanceController extends GetxController {
-  var amount = "".obs;
   final _transactionProvider = Get.put(TransactionProvider());
   final _userController = Get.put(UserController());
   final _walletController = Get.put(WalletController());
+  var amount = "".obs;
 
   @override
   void onInit() {

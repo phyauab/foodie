@@ -1,7 +1,6 @@
 import 'package:frontend/controllers/user_controller.dart';
 import 'package:frontend/models/cart_item.dart';
 import 'package:frontend/providers/cart_provider.dart';
-import 'package:frontend/providers/user_provider.dart';
 import 'package:get/get.dart';
 
 class CartController extends GetxController with StateMixin<List<CartItem>> {

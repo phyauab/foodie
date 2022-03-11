@@ -6,8 +6,7 @@ import 'package:get/get.dart';
 class HomeController extends GetxController {
   static HomeController get to => Get.find();
   final PageController pageController = PageController();
-  final foodItemsProvider = Get.put(FoodItemsProvider());
-
+  final _foodItemsProvider = Get.put(FoodItemsProvider());
   var selectedTabIndex = 0.obs;
 
   void switchTab(int index, bool isFromBot) {
@@ -19,7 +18,6 @@ class HomeController extends GetxController {
   }
 
   Future fetchPopularFoodItems() async {
-    print("controller popular");
-    return foodItemsProvider.fetchPopularFoodItems();
+    return _foodItemsProvider.fetchPopularFoodItems();
   }
 }

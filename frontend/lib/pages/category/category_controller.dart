@@ -5,8 +5,8 @@ import '../../models/category.dart';
 
 class CategoryController extends GetxController
     with StateMixin<List<Category>> {
-  final String title = 'Category';
   final _categoryProvider = Get.put(CategoryProvider());
+  final String title = 'Category';
   List<Category> categories = <Category>[].obs;
 
   @override
