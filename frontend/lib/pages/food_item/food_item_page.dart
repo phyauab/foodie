@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/components/loading.dart';
 
 import 'package:frontend/components/long_button.dart';
 import 'package:frontend/constants.dart';
@@ -19,9 +20,7 @@ class FoodItemPage extends GetView<FoodItemController> {
         body: SingleChildScrollView(
           child: controller.obx(
             (state) => _buildDetail(context),
-            onLoading: const CircularProgressIndicator(
-              semanticsLabel: 'Fetching',
-            ),
+            onLoading: const Loading(),
             onEmpty: ListView(
               children: const [
                 Padding(
@@ -188,7 +187,7 @@ class FoodItemPage extends GetView<FoodItemController> {
                                 .showSnackBar(snackBar);
 
                             final cartController = Get.put(CartController());
-                            cartController.refreshCartItems();
+                            cartController.fetchCartItems();
                             Get.back();
                           }),
                       const SizedBox(

@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 
 import '../../constants.dart';
 import '../../pages/cart/cart_controller.dart';
+import '../loading.dart';
 
 class CartList extends StatelessWidget {
   CartList({Key? key}) : super(key: key);
@@ -17,12 +18,11 @@ class CartList extends StatelessWidget {
   Widget build(BuildContext context) {
     return Expanded(
       child: RefreshIndicator(
-        onRefresh: cartController.refreshCartItems,
+        onRefresh: cartController.fetchCartItems,
+        // child: _buildCartList(context),
         child: cartController.obx(
           (state) => _buildCartList(context),
-          onLoading: const CircularProgressIndicator(
-            semanticsLabel: 'Fetching',
-          ),
+          onLoading: Loading(),
           onEmpty: ListView(
             children: const [
               Padding(
@@ -52,14 +52,14 @@ class CartList extends StatelessWidget {
     return ListView.separated(
       itemBuilder: (context, index) {
         return CartItemTile(
-          cartItem: cartProvider.cartItems[index],
+          cartItem: cartController.cartItems[index],
           deleteItem: cartController.removeCartItem,
         );
       },
       separatorBuilder: (context, index) {
         return const SizedBox(height: 10);
       },
-      itemCount: cartProvider.cartItems.length,
+      itemCount: cartController.cartItems.length,
     );
   }
 }

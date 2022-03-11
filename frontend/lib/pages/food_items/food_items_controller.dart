@@ -6,7 +6,8 @@ import 'package:get/get.dart';
 class FoodItemsController extends GetxController
     with StateMixin<List<FoodItem>> {
   static FoodItemsController get to => Get.find();
-  final foodItemsProvider = Get.put(FoodItemsProvider());
+  final _foodItemsProvider = Get.put(FoodItemsProvider());
+  List<FoodItem> foodItems = <FoodItem>[].obs;
 
   @override
   void onInit() {
@@ -14,20 +15,19 @@ class FoodItemsController extends GetxController
     fetch();
   }
 
-  void fetch() async {
-    RxStatus status = RxStatus.loading();
-    change(foodItemsProvider.getFoodItems(), status: status);
-    await foodItemsProvider
-        .fetchFoodItems(int.parse(Get.parameters["id"] ?? '0'))
-        .then((value) => {
-              status = foodItemsProvider.getFoodItems().isEmpty
-                  ? RxStatus.empty()
-                  : RxStatus.success()
-            });
-    change(foodItemsProvider.getFoodItems(), status: RxStatus.success());
+  Future<void> fetch() async {
+    change(foodItems, status: RxStatus.loading());
+    foodItems = await _foodItemsProvider
+        .fetchFoodItems(int.parse(Get.parameters["id"] ?? '0'));
+
+    if (foodItems.isEmpty) {
+      change(foodItems, status: RxStatus.empty());
+    } else {
+      change(foodItems, status: RxStatus.success());
+    }
   }
 
-  Future<void> refreshFoodItems() async {
-    fetch();
+  FoodItem getFoodItem(int id) {
+    return foodItems.firstWhere((item) => item.id == id);
   }
 }

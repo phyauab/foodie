@@ -2,9 +2,9 @@ import 'package:frontend/models/food_item.dart';
 import 'package:frontend/providers/base.dart';
 
 class FoodItemsProvider extends BaseProvider {
-  List<FoodItem> foodItems = <FoodItem>[];
+  // List<FoodItem> foodItems = <FoodItem>[];
 
-  Future<void> fetchFoodItems(int id) async {
+  Future<List<FoodItem>> fetchFoodItems(int id) async {
     Map<String, dynamic> body = {
       "categories": [id]
     };
@@ -12,14 +12,15 @@ class FoodItemsProvider extends BaseProvider {
     var response = await post('food/getByCategory', body);
 
     if (response.statusCode == 200) {
-      foodItems = (response.body as List<dynamic>)
+      return (response.body as List<dynamic>)
           .map((c) => FoodItem.fromJson(c))
           .toList();
+    } else {
+      return [];
     }
   }
 
   Future fetchPopularFoodItems() async {
-    print("called fetchPopularFoodItems");
     Map<String, dynamic> query = {"popular": "true"};
 
     var response = await get('food', query: query);
@@ -28,13 +29,5 @@ class FoodItemsProvider extends BaseProvider {
           .map((c) => FoodItem.fromJson(c))
           .toList();
     }
-  }
-
-  List<FoodItem> getFoodItems() {
-    return foodItems;
-  }
-
-  FoodItem getFoodItem(int id) {
-    return foodItems.firstWhere((foodItem) => foodItem.id == id);
   }
 }

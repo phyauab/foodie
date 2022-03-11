@@ -17,55 +17,55 @@ class FoodItemsPage extends GetView<FoodItemsController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: _buildAppbar(context),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: defaultScreenPadding),
-            child: PageHeader(
+      body: Padding(
+        padding: EdgeInsets.symmetric(horizontal: defaultScreenPadding),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            PageHeader(
                 title: capitalize(Get.parameters["categoryName"] ?? 'Unknown')),
-          ),
-          Expanded(
-            child: RefreshIndicator(
-              onRefresh: controller.refreshFoodItems,
-              child: controller.obx(
-                (state) => Padding(
-                  padding:
-                      EdgeInsets.symmetric(horizontal: defaultScreenPadding),
-                  child: ListView.builder(
-                    itemCount: controller.foodItemsProvider.foodItems.length,
-                    itemBuilder: ((context, index) => FoodItemTile(
-                        food: controller.foodItemsProvider.foodItems[index])),
+            Expanded(
+              child: RefreshIndicator(
+                onRefresh: controller.fetch,
+                child: controller.obx(
+                  (state) => _buildFoodItemList(context),
+                  onLoading: const CircularProgressIndicator(
+                    semanticsLabel: 'Fetching',
+                  ),
+                  onEmpty: ListView(
+                    children: const [
+                      Padding(
+                        padding: EdgeInsets.all(20),
+                        child: Center(
+                          child: Text('No items found, pull to refresh...'),
+                        ),
+                      ),
+                    ],
+                  ),
+                  onError: (error) => ListView(
+                    children: const [
+                      Padding(
+                        padding: EdgeInsets.all(20),
+                        child: Center(
+                          child: Text('An error occured, pull to refresh...'),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
-                onLoading: const CircularProgressIndicator(
-                  semanticsLabel: 'Fetching',
-                ),
-                onEmpty: ListView(
-                  children: const [
-                    Padding(
-                      padding: EdgeInsets.all(20),
-                      child: Center(
-                        child: Text('No items found, pull to refresh...'),
-                      ),
-                    ),
-                  ],
-                ),
-                onError: (error) => ListView(
-                  children: const [
-                    Padding(
-                      padding: EdgeInsets.all(20),
-                      child: Center(
-                        child: Text('An error occured, pull to refresh...'),
-                      ),
-                    ),
-                  ],
-                ),
               ),
-            ),
-          )
-        ],
+            )
+          ],
+        ),
       ),
+    );
+  }
+
+  Widget _buildFoodItemList(BuildContext context) {
+    return ListView.builder(
+      itemCount: controller.foodItems.length,
+      itemBuilder: ((context, index) =>
+          FoodItemTile(food: controller.foodItems[index])),
     );
   }
 

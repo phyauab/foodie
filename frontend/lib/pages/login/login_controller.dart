@@ -19,7 +19,7 @@ class LoginController extends GetxController {
   Future<bool> login() async {
     await userProvider.login(username.value, password.value);
     if (userProvider.isLoggedIn.value) {
-      cartController.fetch();
+      cartController.fetchCartItems();
     }
     return userProvider.user != null;
   }

@@ -1,36 +1,36 @@
+import 'package:frontend/pages/cart/cart_controller.dart';
+import 'package:frontend/pages/food_items/food_items_controller.dart';
 import 'package:frontend/providers/cart_provider.dart';
 import 'package:get/get.dart';
-
 import '../../models/food_item.dart';
-import '../../providers/food_items_provider.dart';
 
 class FoodItemController extends GetxController with StateMixin<FoodItem> {
   static FoodItemController get to => Get.find();
-  final foodItemsProvider = Get.put(FoodItemsProvider());
-  final cartProvider = Get.put(CartProvider());
+  final _foodItemsController = Get.put(FoodItemsController());
+  final _cartProvider = Get.put(CartProvider());
+  final _cartController = Get.put(CartController());
   late FoodItem foodItem;
-  var totalAmount = 0.0.obs;
   var quantity = 1.obs;
 
   @override
   void onInit() {
-    super.onInit();
     fetch();
+    super.onInit();
   }
 
   void fetch() {
-    RxStatus status = RxStatus.loading();
-    // change(foodItem, status: status);
-    foodItem =
-        foodItemsProvider.getFoodItem(int.parse(Get.parameters["id"] ?? '0'));
+    foodItem = _foodItemsController
+        .getFoodItem(int.parse(Get.parameters["id"] ?? '0'));
+    change(foodItem, status: RxStatus.loading());
     if (foodItem != null) {
-      status = RxStatus.success();
-      totalAmount = RxDouble(foodItem.price);
-      change(foodItem, status: status);
+      change(foodItem, status: RxStatus.success());
+    } else {
+      change(foodItem, status: RxStatus.error());
     }
   }
 
   void addToCart() async {
-    cartProvider.addToCart(foodItem.id, quantity.value);
+    _cartProvider.addToCart(foodItem.id, quantity.value);
+    _cartController.fetchCartItems();
   }
 }

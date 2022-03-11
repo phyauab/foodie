@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/components/loading.dart';
 import 'package:frontend/components/page_header.dart';
 import 'package:frontend/constants.dart';
 import 'package:frontend/models/category.dart';
@@ -18,7 +19,8 @@ class CategoryPage extends GetView<CategoryController> {
           PageHeader(title: controller.title),
           Expanded(
             child: RefreshIndicator(
-              onRefresh: controller.refreshCategories,
+              onRefresh: controller.fetchCategories,
+              // child: _buildCategoryGridView(context),
               child: controller.obx(
                 (state) => _buildCategoryGridView(context),
                 onLoading: const CircularProgressIndicator(
@@ -46,68 +48,65 @@ class CategoryPage extends GetView<CategoryController> {
                 ),
               ),
             ),
-          )
+          ),
         ],
       ),
     );
   }
 
   Widget _buildCategoryGridView(BuildContext context) {
-    return MediaQuery.removePadding(
-      context: context,
-      removeTop: true,
-      child: GridView.builder(
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2,
-            crossAxisSpacing: defaultScreenPadding / 2,
-            mainAxisSpacing: defaultScreenPadding / 2,
-          ),
-          itemCount: controller.getCategories().length,
-          itemBuilder: (BuildContext context, int index) {
-            return _buildCategoryCard(
-                controller.getCategories()[index], context);
-          }),
+    return GridView.builder(
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 2,
+        crossAxisSpacing: defaultScreenPadding / 2,
+        mainAxisSpacing: defaultScreenPadding / 2,
+      ),
+      itemCount: controller.categories.length,
+      itemBuilder: (BuildContext context, int index) {
+        return _buildCategoryCard(controller.categories[index], context);
+      },
     );
   }
 
   Card _buildCategoryCard(Category category, BuildContext context) {
     return Card(
-        color: category.color.withOpacity(0.5),
-        shape: RoundedRectangleBorder(
-          // side: BorderSide(color: Colors.white70, width: 1),
-          borderRadius: BorderRadius.circular(25.0),
-        ),
-        child: InkWell(
-          onTap: () {
-            Get.toNamed(
-                "/food/categories/${category.id}?categoryName=${category.name}");
-          },
-          child: Container(
-            height: 300,
-            width: double.infinity,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(25.0),
-              image: DecorationImage(
-                fit: BoxFit.cover,
-                colorFilter: ColorFilter.mode(
-                    category.color.withOpacity(0.3), BlendMode.dstATop),
-                image: NetworkImage(category.imagePath),
-              ),
+      color: category.color.withOpacity(0.5),
+      shape: RoundedRectangleBorder(
+        // side: BorderSide(color: Colors.white70, width: 1),
+        borderRadius: BorderRadius.circular(25.0),
+      ),
+      child: InkWell(
+        onTap: () {
+          Get.toNamed(
+              "/food/categories/${category.id}?categoryName=${category.name}");
+        },
+        child: Container(
+          height: 300,
+          width: double.infinity,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(25.0),
+            image: DecorationImage(
+              fit: BoxFit.cover,
+              colorFilter: ColorFilter.mode(
+                  category.color.withOpacity(0.3), BlendMode.dstATop),
+              image: NetworkImage(category.imagePath),
             ),
-            child: Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: Center(
-                child: Text(
-                  category.name[0].toUpperCase() +
-                      category.name.substring(1, category.name.length),
-                  style: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold),
-                ),
+          ),
+          child: Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: Center(
+              child: Text(
+                category.name[0].toUpperCase() +
+                    category.name.substring(1, category.name.length),
+                style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold),
               ),
             ),
           ),
-        ));
+        ),
+      ),
+    );
   }
 }
