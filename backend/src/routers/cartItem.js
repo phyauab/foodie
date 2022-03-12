@@ -76,6 +76,7 @@ router.get("/cartItems/user/:id", auth, async (req, res) => {
           include: Category,
         },
       ],
+      order: [["updatedAt", "DESC"]],
     });
 
     res.send(cartItems);

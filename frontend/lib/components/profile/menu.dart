@@ -16,10 +16,12 @@ class Menu extends StatelessWidget {
 
     List<MenuItem> menuItems = [
       MenuItem(
-        iconData: Icons.account_box,
-        title: "Details",
+        iconData: Icons.library_books,
+        title: "Records",
         color: Colors.red,
-        func: () {},
+        func: () {
+          Get.toNamed("/orderRecords");
+        },
       ),
       MenuItem(
         iconData: Icons.account_balance_wallet,

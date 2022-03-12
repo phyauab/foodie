@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:frontend/controllers/user_controller.dart';
 import 'package:frontend/pages/add_balance/add_balance_binding.dart';
 import 'package:frontend/pages/add_balance/add_balance_page.dart';
+import 'package:frontend/pages/order_record/order_record_binding.dart';
+import 'package:frontend/pages/order_record/order_record_page.dart';
 import 'package:frontend/pages/wallet/wallet_binding.dart';
 import 'package:frontend/pages/wallet/wallet_page.dart';
 import 'package:frontend/pages/food_item/food_item_binding.dart';
@@ -67,6 +69,11 @@ class MyApp extends StatelessWidget {
           name: "/addBalance",
           page: () => AddBalancePage(),
           binding: AddBalanceBinding(),
+        ),
+        GetPage(
+          name: "/orderRecords",
+          page: () => OrderRecordPage(),
+          binding: OrderRecordBinding(),
         )
       ],
       theme: ThemeData(

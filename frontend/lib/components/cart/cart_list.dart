@@ -19,10 +19,9 @@ class CartList extends StatelessWidget {
     return Expanded(
       child: RefreshIndicator(
         onRefresh: cartController.fetchCartItems,
-        // child: _buildCartList(context),
         child: cartController.obx(
           (state) => _buildCartList(context),
-          onLoading: Loading(),
+          onLoading: const Loading(),
           onEmpty: ListView(
             children: const [
               Padding(
