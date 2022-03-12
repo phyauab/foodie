@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:frontend/constants.dart';
 import 'package:frontend/helpers/helper.dart';
 import 'package:frontend/models/food_item.dart';
 import 'package:frontend/pages/food_item/food_item_page.dart';
@@ -12,22 +13,22 @@ class FoodItemTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 5.0),
+    return Container(
+      margin:
+          EdgeInsets.symmetric(vertical: 5.0, horizontal: defaultScreenPadding),
       child: SizedBox(
         height: 100,
         child: Container(
           decoration: BoxDecoration(
             boxShadow: [
               BoxShadow(
-                color: Colors.grey.withOpacity(0.2),
-                spreadRadius: 3,
-                blurRadius: 5,
-                offset: Offset(0, 3), // changes position of shadow
+                color: Colors.grey.withOpacity(0.1),
+                spreadRadius: 1,
+                blurRadius: 1,
+                offset: const Offset(1, 1), // changes position of shadow
               ),
             ],
             borderRadius: BorderRadius.circular(15.0),
-            color: Colors.white,
           ),
           child: Material(
             borderRadius: BorderRadius.circular(15),
@@ -74,25 +75,40 @@ class FoodItemTile extends StatelessWidget {
                                     fontSize: 18),
                               ),
                             ),
-                            RatingBarIndicator(
-                              rating: food.rating,
-                              itemBuilder: (context, index) => const Icon(
-                                Icons.star,
-                                color: Colors.amber,
-                              ),
-                              itemCount: 5,
-                              itemSize: 20.0,
-                              direction: Axis.horizontal,
+                            Row(
+                              children: [
+                                RatingBarIndicator(
+                                  rating: food.rating,
+                                  itemBuilder: (context, index) => const Icon(
+                                    Icons.star,
+                                    color: Colors.amber,
+                                  ),
+                                  itemCount: 5,
+                                  itemSize: 15.0,
+                                  direction: Axis.horizontal,
+                                ),
+                                const SizedBox(
+                                  width: 5,
+                                ),
+                                Text("(${food.rating})")
+                              ],
                             ),
                             Text(
                               '\$${food.price.toString()}',
                               style: TextStyle(
-                                  color: Theme.of(context).colorScheme.primary,
-                                  fontWeight: FontWeight.w500,
-                                  fontSize: 15),
-                            )
+                                color: Colors.grey[700],
+                                fontWeight: FontWeight.w500,
+                                fontSize: 15,
+                              ),
+                            ),
                           ],
                         ),
+                      ),
+                    ),
+                    const SizedBox(
+                      width: 60,
+                      child: Center(
+                        child: Icon(Icons.keyboard_arrow_right),
                       ),
                     )
                   ],

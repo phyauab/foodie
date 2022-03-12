@@ -19,49 +19,47 @@ class CartItemTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: ListTile(
-        onTap: () => showDialog(
-          context: context,
-          builder: (BuildContext context) => Counter(
-            id: cartItem.id,
-            quantity: cartItem.amount,
-            updateQuantity: updateQuantity,
-          ),
+    return ListTile(
+      onTap: () => showDialog(
+        context: context,
+        builder: (BuildContext context) => Counter(
+          id: cartItem.id,
+          quantity: cartItem.amount,
+          updateQuantity: updateQuantity,
         ),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(defaultBorderRadius),
+      ),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(defaultBorderRadius),
+      ),
+      tileColor: Colors.grey.shade100,
+      leading: SizedBox(
+        width: 60,
+        height: 60,
+        child: Image.network(
+          cartItem.food.imagePath,
+          fit: BoxFit.cover,
         ),
-        tileColor: Colors.grey.shade100,
-        leading: SizedBox(
-          width: 60,
-          height: 60,
-          child: Image.network(
-            cartItem.food.imagePath,
-            fit: BoxFit.cover,
-          ),
+      ),
+      title: Text(capitalize(cartItem.food.name)),
+      subtitle: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text("Quantity: ${cartItem.amount}"),
+          Text(
+            "\$${(cartItem.amount * cartItem.food.price).toStringAsFixed(1)}",
+            style: const TextStyle(color: Colors.green),
+          )
+        ],
+      ),
+      isThreeLine: true,
+      trailing: IconButton(
+        icon: const Icon(
+          Icons.delete,
+          color: Colors.redAccent,
         ),
-        title: Text(capitalize(cartItem.food.name)),
-        subtitle: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text("Quantity: ${cartItem.amount}"),
-            Text(
-              "\$${(cartItem.amount * cartItem.food.price).toStringAsFixed(1)}",
-              style: const TextStyle(color: Colors.green),
-            )
-          ],
-        ),
-        isThreeLine: true,
-        trailing: IconButton(
-          icon: const Icon(
-            Icons.delete,
-            color: Colors.redAccent,
-          ),
-          onPressed: () {
-            deleteItem(cartItem.id);
-          },
-        ),
+        onPressed: () {
+          deleteItem(cartItem.id);
+        },
       ),
     );
   }

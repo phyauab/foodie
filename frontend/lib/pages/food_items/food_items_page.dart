@@ -17,46 +17,46 @@ class FoodItemsPage extends GetView<FoodItemsController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: _buildAppbar(context),
-      body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: defaultScreenPadding),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            PageHeader(
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: defaultScreenPadding),
+            child: PageHeader(
                 title: capitalize(Get.parameters["categoryName"] ?? 'Unknown')),
-            Expanded(
-              child: RefreshIndicator(
-                onRefresh: controller.fetch,
-                child: controller.obx(
-                  (state) => _buildFoodItemList(context),
-                  onLoading: const CircularProgressIndicator(
-                    semanticsLabel: 'Fetching',
-                  ),
-                  onEmpty: ListView(
-                    children: const [
-                      Padding(
-                        padding: EdgeInsets.all(20),
-                        child: Center(
-                          child: Text('No items found, pull to refresh...'),
-                        ),
+          ),
+          Expanded(
+            child: RefreshIndicator(
+              onRefresh: controller.fetch,
+              child: controller.obx(
+                (state) => _buildFoodItemList(context),
+                onLoading: const CircularProgressIndicator(
+                  semanticsLabel: 'Fetching',
+                ),
+                onEmpty: ListView(
+                  children: const [
+                    Padding(
+                      padding: EdgeInsets.all(20),
+                      child: Center(
+                        child: Text('No items found, pull to refresh...'),
                       ),
-                    ],
-                  ),
-                  onError: (error) => ListView(
-                    children: const [
-                      Padding(
-                        padding: EdgeInsets.all(20),
-                        child: Center(
-                          child: Text('An error occured, pull to refresh...'),
-                        ),
+                    ),
+                  ],
+                ),
+                onError: (error) => ListView(
+                  children: const [
+                    Padding(
+                      padding: EdgeInsets.all(20),
+                      child: Center(
+                        child: Text('An error occured, pull to refresh...'),
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
-            )
-          ],
-        ),
+            ),
+          )
+        ],
       ),
     );
   }
