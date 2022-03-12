@@ -2,8 +2,6 @@ import 'package:frontend/models/food_item.dart';
 import 'package:frontend/providers/base.dart';
 
 class FoodItemsProvider extends BaseProvider {
-  // List<FoodItem> foodItems = <FoodItem>[];
-
   Future<List<FoodItem>> fetchFoodItems(int id) async {
     Map<String, dynamic> body = {
       "categories": [id]
@@ -18,6 +16,14 @@ class FoodItemsProvider extends BaseProvider {
     } else {
       return [];
     }
+  }
+
+  Future<FoodItem?> fetchFoodItem(int id) async {
+    var response = await get('food/$id');
+    if (response.statusCode == 200) {
+      return FoodItem.fromJson(response.body);
+    }
+    return null;
   }
 
   Future fetchPopularFoodItems() async {

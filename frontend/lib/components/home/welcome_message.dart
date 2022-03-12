@@ -9,7 +9,6 @@ class WelcomeMessage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final userProvider = Get.put(UserProvider());
     final _userController = Get.put(UserController());
 
     return Container(

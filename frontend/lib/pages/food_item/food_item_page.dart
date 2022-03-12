@@ -67,11 +67,12 @@ class FoodItemPage extends GetView<FoodItemController> {
       child: ListView.separated(
           scrollDirection: Axis.horizontal,
           itemBuilder: (_, i) => Chip(
-              label: Text(capitalize(controller.foodItem.categories[i].name))),
+              label: Text(
+                  capitalize(controller.foodItem.value!.categories[i].name))),
           separatorBuilder: (BuildContext context, int i) => const SizedBox(
                 width: 10,
               ),
-          itemCount: controller.foodItem.categories.length),
+          itemCount: controller.foodItem.value!.categories.length),
     );
   }
 
@@ -85,7 +86,7 @@ class FoodItemPage extends GetView<FoodItemController> {
             width: MediaQuery.of(context).size.width,
             child: Image(
               image: NetworkImage(
-                controller.foodItem.imagePath,
+                controller.foodItem.value!.imagePath,
               ),
               fit: BoxFit.fitWidth,
               filterQuality: FilterQuality.high,
@@ -122,7 +123,7 @@ class FoodItemPage extends GetView<FoodItemController> {
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(capitalize(controller.foodItem.name),
+                              Text(capitalize(controller.foodItem.value!.name),
                                   style: const TextStyle(
                                       fontSize: 36,
                                       fontWeight: FontWeight.w500)),
@@ -134,7 +135,7 @@ class FoodItemPage extends GetView<FoodItemController> {
                             ],
                           ),
                           Text(
-                            "\$${controller.foodItem.price.toString()}",
+                            "\$${controller.foodItem.value!.price.toString()}",
                             style: TextStyle(
                                 color: Theme.of(context).primaryColor,
                                 fontSize: 28,
@@ -154,7 +155,7 @@ class FoodItemPage extends GetView<FoodItemController> {
                         height: 15,
                       ),
                       ReadMoreText(
-                        controller.foodItem.description,
+                        controller.foodItem.value!.description,
                         trimLines: 3,
                         style:
                             const TextStyle(color: Colors.black, height: 1.5),
@@ -218,7 +219,7 @@ class FoodItemPage extends GetView<FoodItemController> {
               width: 5,
             ),
             Text(
-              "${controller.foodItem.rating}/5",
+              "${controller.foodItem.value!.rating}/5",
               style: const TextStyle(fontWeight: FontWeight.w600),
             )
           ],
@@ -233,7 +234,7 @@ class FoodItemPage extends GetView<FoodItemController> {
               width: 5,
             ),
             Text(
-              "${controller.foodItem.minCookingTime} - ${controller.foodItem.maxCookingTime} mins",
+              "${controller.foodItem.value!.minCookingTime} - ${controller.foodItem.value!.maxCookingTime} mins",
               style: const TextStyle(fontWeight: FontWeight.w600),
             )
           ],
