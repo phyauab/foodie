@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:frontend/models/food_item.dart';
 import 'package:frontend/providers/food_items_provider.dart';
 import 'package:get/get.dart';

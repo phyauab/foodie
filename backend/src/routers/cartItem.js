@@ -48,7 +48,6 @@ router.post("/cartItems", async (req, res) => {
 // Read
 router.get("/cartItems", async (req, res) => {
   try {
-    // console.log("hiiiiiiiiiiiiiiii");
     const cartItem = await CartItem.findAll({
       include: [{ model: User }, { model: Food }],
     });
@@ -58,9 +57,13 @@ router.get("/cartItems", async (req, res) => {
   }
 });
 
-router.get("/cartItems/user/:id", async (req, res) => {
+router.get("/cartItems/user/:id", auth, async (req, res) => {
   try {
+    let isPaid = req.query.isPaid == "true";
     const cartItems = await CartItem.findAll({
+      where: {
+        isPaid: isPaid,
+      },
       include: [
         {
           model: User,

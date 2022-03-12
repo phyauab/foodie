@@ -16,4 +16,10 @@ class TransactionProvider extends BaseProvider {
     final response = await post('transactions/addBalance', body);
     return response.statusCode == 200;
   }
+
+  Future<bool> makePayment() async {
+    Map<String, dynamic> body = {};
+    final response = await post("transactions/payment", body);
+    return response.statusCode == 200;
+  }
 }

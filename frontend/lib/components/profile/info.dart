@@ -73,7 +73,7 @@ class Info extends StatelessWidget {
                       Icons.attach_money,
                       color: Colors.green,
                     ),
-                    "$balance",
+                    balance.toStringAsFixed(2),
                     textColor: Colors.green),
               ],
             ),

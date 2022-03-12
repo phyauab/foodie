@@ -1,11 +1,13 @@
 import 'package:frontend/controllers/user_controller.dart';
 import 'package:frontend/models/cart_item.dart';
 import 'package:frontend/providers/cart_provider.dart';
+import 'package:frontend/providers/transaction_provider.dart';
 import 'package:get/get.dart';
 
 class CartController extends GetxController with StateMixin<List<CartItem>> {
   final _cartProvider = Get.put(CartProvider());
   final _userController = Get.put(UserController());
+  final _transactionProvider = Get.put(TransactionProvider());
   List<CartItem> cartItems = <CartItem>[].obs;
   var total = 0.0.obs;
   var isMakePaymentDisabled = false.obs;
@@ -18,14 +20,14 @@ class CartController extends GetxController with StateMixin<List<CartItem>> {
 
   Future<void> fetchCartItems() async {
     change(cartItems, status: RxStatus.loading());
-    cartItems = await _cartProvider.fetchCart();
+    cartItems = await _cartProvider.fetchCart(false);
     if (cartItems.isEmpty) {
       change(cartItems, status: RxStatus.empty());
     } else {
       change(cartItems, status: RxStatus.success());
     }
     _calculateTotal();
-    _updateIsMakePaymentDisabled();
+    updateIsMakePaymentDisabled();
   }
 
   Future<void> removeCartItem(int id) async {
@@ -42,7 +44,7 @@ class CartController extends GetxController with StateMixin<List<CartItem>> {
     } else {
       change(cartItems, status: RxStatus.success());
     }
-    _updateIsMakePaymentDisabled();
+    updateIsMakePaymentDisabled();
   }
 
   Future<void> updateQuantity(int id, int quantity) async {
@@ -52,7 +54,7 @@ class CartController extends GetxController with StateMixin<List<CartItem>> {
       CartItem cartItem = cartItems.firstWhere((item) => item.id == id);
       cartItem.amount = quantity;
       _calculateTotal();
-      _updateIsMakePaymentDisabled();
+      updateIsMakePaymentDisabled();
 
       if (cartItems.isEmpty) {
         change(cartItems, status: RxStatus.empty());
@@ -64,9 +66,14 @@ class CartController extends GetxController with StateMixin<List<CartItem>> {
     }
   }
 
-  Future<void> makePayment() async {}
+  Future<void> makePayment() async {
+    await _transactionProvider.makePayment();
+    await fetchCartItems();
+    await _userController.getMe();
+    updateIsMakePaymentDisabled();
+  }
 
-  void _updateIsMakePaymentDisabled() {
+  void updateIsMakePaymentDisabled() {
     if (_userController.user.value != null) {
       isMakePaymentDisabled.value =
           _userController.user.value!.balance < total.value;

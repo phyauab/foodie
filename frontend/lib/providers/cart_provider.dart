@@ -11,13 +11,13 @@ import 'package:http/http.dart' as http;
 class CartProvider extends BaseProvider {
   final _userController = Get.put(UserController());
 
-  Future<List<CartItem>> fetchCart() async {
+  Future<List<CartItem>> fetchCart(bool isPaid) async {
     if (_userController.user.value == null) {
       return [];
     }
 
-    final response =
-        await get("cartItems/user/${_userController.user.value?.id}");
+    final response = await get(
+        "cartItems/user/${_userController.user.value?.id}?isPaid=$isPaid");
 
     if (response.statusCode == 200) {
       return (response.body as List<dynamic>)
@@ -51,9 +51,5 @@ class CartProvider extends BaseProvider {
     Map<String, dynamic> body = {"amount": quantity};
     final response = await patch("cartItems/$id", body);
     return response.statusCode == 200;
-  }
-
-  Future<bool> makePayment() async {
-    return true;
   }
 }

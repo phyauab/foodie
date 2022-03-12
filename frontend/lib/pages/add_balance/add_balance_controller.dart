@@ -1,4 +1,5 @@
 import 'package:frontend/controllers/user_controller.dart';
+import 'package:frontend/pages/cart/cart_controller.dart';
 import 'package:frontend/pages/wallet/wallet_controller.dart';
 import 'package:frontend/providers/transaction_provider.dart';
 import 'package:get/get.dart';
@@ -7,6 +8,7 @@ class AddBalanceController extends GetxController {
   final _transactionProvider = Get.put(TransactionProvider());
   final _userController = Get.put(UserController());
   final _walletController = Get.put(WalletController());
+  final _cartController = Get.put(CartController());
   var amount = "".obs;
 
   @override
@@ -30,6 +32,7 @@ class AddBalanceController extends GetxController {
     if (isSuccess) {
       _userController.getMe();
       _walletController.fetchTransactions();
+      _cartController.updateIsMakePaymentDisabled();
       Get.back();
     }
   }

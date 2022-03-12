@@ -23,7 +23,7 @@ class Menu extends StatelessWidget {
       ),
       MenuItem(
         iconData: Icons.account_balance_wallet,
-        title: "Add Balance",
+        title: "My Wallet",
         color: Colors.orange,
         func: () {
           Get.toNamed("/wallet");
