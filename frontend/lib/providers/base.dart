@@ -10,20 +10,17 @@ class BaseProvider extends GetConnect {
 
     httpClient.addAuthenticator<void>((request) async {
       String? token = await storage.read(key: 'token');
-      print("this is the token $token");
+      print("My Token: $token");
       if (token != null) {
         request.headers['Authorization'] = "Bearer $token";
       }
       return request;
     });
 
-    // httpClient.addRequestModifier<void>((request) {
-    //   // request.headers['apikey'] = '12345678';
-    //   return request;
-    // });
-
-    // httpClient.addResponseModifier((request, response) {});
-
     httpClient.maxAuthRetries = 3;
+  }
+
+  void removeToken() async {
+    await storage.delete(key: "token");
   }
 }

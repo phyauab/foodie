@@ -46,6 +46,6 @@ class UserProvider extends BaseProvider {
   }
 
   void logout() {
-    // TODO: remove token
+    removeToken();
   }
 }
