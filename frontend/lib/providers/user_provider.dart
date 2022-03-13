@@ -35,6 +35,16 @@ class UserProvider extends BaseProvider {
     return null;
   }
 
+  Future<bool> updateUserInfo(
+      int id, String password, String newPassword) async {
+    Map<String, dynamic> body = {
+      "password": password,
+      "newPassword": newPassword
+    };
+    final response = await patch("users/$id", body);
+    return response.statusCode == 200;
+  }
+
   void logout() {
     // TODO: remove token
   }

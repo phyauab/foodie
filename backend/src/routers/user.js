@@ -77,20 +77,27 @@ router.get("/users/:id", auth, async (req, res) => {
 });
 
 // update
-router.put("/users/:id", async (req, res) => {
+router.patch("/users/:id", auth, async (req, res) => {
   try {
-    console.log(req.params.id);
+    if (req.user.id != req.params.id)
+      throw "You are not allowed to modify other users";
+
     const user = await User.findOne({
       where: {
         id: req.params.id,
       },
     });
 
-    console.log(user);
-
     if (user == null) throw "Error: User not found";
 
-    user.set(req.body);
+    if (user.password != req.body.password) throw "Wrong password";
+
+    if (req.body) {
+      if (req.body.newPassword) {
+        user.password = req.body.newPassword;
+      }
+    }
+
     await user.save();
 
     return res.send(user);

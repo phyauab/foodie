@@ -39,4 +39,8 @@ class UserController extends GetxController {
       isLoggedIn.value = true;
     }
   }
+
+  Future<bool> updateInfo(int id, String password, String newPassword) async {
+    return _userProvider.updateUserInfo(id, password, newPassword);
+  }
 }

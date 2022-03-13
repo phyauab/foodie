@@ -85,7 +85,7 @@ class MyApp extends StatelessWidget {
       ],
       theme: ThemeData(
         primarySwatch: Colors.amber,
-        primaryColor: Colors.yellow[700],
+        primaryColor: Colors.orange[300],
         iconTheme: const IconThemeData(color: Colors.grey),
       ),
       // initialRoute: '/',
