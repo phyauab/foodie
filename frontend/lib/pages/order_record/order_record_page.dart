@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/components/common/simple_appbar.dart';
 import 'package:frontend/components/order_record/order_record_list.dart';
 import 'package:frontend/constants.dart';
 import 'package:frontend/pages/order_record/order_record_controller.dart';
 import 'package:get/get.dart';
 
-import '../../components/section_header.dart';
+import '../../components/common/section_header.dart';
 
 class OrderRecordPage extends GetView<OrderRecordController> {
   const OrderRecordPage({Key? key}) : super(key: key);
@@ -12,7 +13,10 @@ class OrderRecordPage extends GetView<OrderRecordController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: _buildAppbar(context),
+      appBar: SimpleAppbar(
+        title: "Order Records",
+        backgroundColor: Colors.orange[300]!,
+      ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -102,26 +106,6 @@ class OrderRecordPage extends GetView<OrderRecordController> {
             ),
           ),
         ],
-      ),
-    );
-  }
-
-  AppBar _buildAppbar(BuildContext context) {
-    return AppBar(
-      backgroundColor: Colors.orange[300],
-      elevation: 0,
-      leading: IconButton(
-        icon: const Icon(
-          Icons.arrow_back_ios,
-          color: Colors.white,
-        ),
-        onPressed: () {
-          Get.back();
-        },
-      ),
-      title: Text(
-        "Order Records",
-        style: TextStyle(color: Colors.white),
       ),
     );
   }

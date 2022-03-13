@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:frontend/components/loading.dart';
-import 'package:frontend/components/page_header.dart';
+import 'package:frontend/components/common/loading.dart';
+import 'package:frontend/components/common/page_header.dart';
 import 'package:frontend/constants.dart';
 import 'package:frontend/models/category.dart';
 import 'package:frontend/pages/category/category_controller.dart';

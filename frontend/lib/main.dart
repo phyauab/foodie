@@ -4,6 +4,8 @@ import 'package:frontend/pages/add_balance/add_balance_binding.dart';
 import 'package:frontend/pages/add_balance/add_balance_page.dart';
 import 'package:frontend/pages/order_record/order_record_binding.dart';
 import 'package:frontend/pages/order_record/order_record_page.dart';
+import 'package:frontend/pages/update_info/update_info_binding.dart';
+import 'package:frontend/pages/update_info/update_info_page.dart';
 import 'package:frontend/pages/wallet/wallet_binding.dart';
 import 'package:frontend/pages/wallet/wallet_page.dart';
 import 'package:frontend/pages/food_item/food_item_binding.dart';
@@ -66,14 +68,19 @@ class MyApp extends StatelessWidget {
           binding: WalletBinding(),
         ),
         GetPage(
+          name: "/orderRecords",
+          page: () => OrderRecordPage(),
+          binding: OrderRecordBinding(),
+        ),
+        GetPage(
           name: "/addBalance",
           page: () => AddBalancePage(),
           binding: AddBalanceBinding(),
         ),
         GetPage(
-          name: "/orderRecords",
-          page: () => OrderRecordPage(),
-          binding: OrderRecordBinding(),
+          name: "/updateInfo",
+          page: () => UpdateInfoPage(),
+          binding: UpdateInfoBinding(),
         )
       ],
       theme: ThemeData(

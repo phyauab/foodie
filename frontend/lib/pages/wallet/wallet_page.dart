@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:frontend/components/section_header.dart';
+import 'package:frontend/components/common/section_header.dart';
+import 'package:frontend/components/common/simple_appbar.dart';
 import 'package:frontend/components/wallet/transaction_list.dart';
 import 'package:frontend/constants.dart';
 import 'package:frontend/pages/add_balance/add_balance_page.dart';
@@ -13,7 +14,10 @@ class WalletPage extends GetView<WalletController> {
   Widget build(BuildContext context) {
     return Scaffold(
       extendBodyBehindAppBar: false,
-      appBar: _buildAppbar(context),
+      appBar: SimpleAppbar(
+        title: "My Wallet",
+        backgroundColor: Colors.orange[300]!,
+      ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -123,26 +127,6 @@ class WalletPage extends GetView<WalletController> {
             ],
           ),
         ),
-      ),
-    );
-  }
-
-  AppBar _buildAppbar(BuildContext context) {
-    return AppBar(
-      backgroundColor: Colors.orange[300],
-      elevation: 0,
-      leading: IconButton(
-        icon: const Icon(
-          Icons.arrow_back_ios,
-          color: Colors.white,
-        ),
-        onPressed: () {
-          Get.back();
-        },
-      ),
-      title: Text(
-        "My Wallet",
-        style: TextStyle(color: Colors.white),
       ),
     );
   }

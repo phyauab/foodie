@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:frontend/providers/app_provider.dart';
-import 'package:frontend/providers/user_provider.dart';
 import 'package:get/get.dart';
-import 'package:provider/provider.dart';
 
-import '../controllers/user_controller.dart';
+import '../../controllers/user_controller.dart';
 
 class CustomDrawer extends StatefulWidget {
   const CustomDrawer({Key? key}) : super(key: key);

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:frontend/components/long_button.dart';
+import 'package:frontend/components/common/long_button.dart';
 import 'package:get/get.dart';
 
 import '../../constants.dart';

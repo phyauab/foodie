@@ -1,12 +1,12 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:frontend/components/page_header.dart';
+import 'package:frontend/components/common/page_header.dart';
 import 'package:frontend/constants.dart';
 import 'package:frontend/helpers/helper.dart';
 import 'package:frontend/models/category.dart';
 import 'package:frontend/models/food_item.dart';
-import 'package:frontend/components/food_item_tile.dart';
+import 'package:frontend/components/food_items/food_item_tile.dart';
 import 'package:frontend/pages/food_items/food_items_controller.dart';
 import 'package:get/get.dart';
 

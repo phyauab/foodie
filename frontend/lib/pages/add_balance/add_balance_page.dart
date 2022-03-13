@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:frontend/components/long_button.dart';
+import 'package:frontend/components/common/long_button.dart';
+import 'package:frontend/components/common/simple_appbar.dart';
 import 'package:frontend/constants.dart';
 import 'package:get/get.dart';
 import 'package:numeric_keyboard/numeric_keyboard.dart';
@@ -13,7 +14,7 @@ class AddBalancePage extends GetView<AddBalanceController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: _buildAppbar(context),
+      appBar: SimpleAppbar(title: "Add Balance"),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: defaultScreenPadding),
         child: Container(
@@ -58,15 +59,6 @@ class AddBalancePage extends GetView<AddBalanceController> {
           ),
         ),
       ),
-    );
-  }
-
-  AppBar _buildAppbar(BuildContext context) {
-    return AppBar(
-      leading: null,
-      backgroundColor: Colors.transparent,
-      elevation: 0,
-      title: const Text("Add Balance"),
     );
   }
 }

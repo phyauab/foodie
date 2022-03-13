@@ -6,7 +6,7 @@ import 'package:get/get.dart';
 
 import '../../constants.dart';
 import '../../pages/cart/cart_controller.dart';
-import '../loading.dart';
+import '../common/loading.dart';
 
 class CartList extends StatelessWidget {
   CartList({Key? key}) : super(key: key);

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/components/home/food_card.dart';
-import 'package:frontend/components/loading.dart';
-import 'package:frontend/components/section_header.dart';
+import 'package:frontend/components/common/loading.dart';
+import 'package:frontend/components/common/section_header.dart';
 import 'package:frontend/constants.dart';
 import 'package:frontend/models/food_item.dart';
 

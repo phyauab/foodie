@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:frontend/components/custom_appbar.dart';
-import 'package:frontend/components/custom_bottom_navigation_bar.dart';
-import 'package:frontend/components/custom_drawer.dart';
+import 'package:frontend/components/common/custom_appbar.dart';
+import 'package:frontend/components/common/custom_bottom_navigation_bar.dart';
+import 'package:frontend/components/common/custom_drawer.dart';
 import 'package:frontend/components/home/carousel.dart';
 import 'package:frontend/components/home/popular.dart';
 import 'package:frontend/components/home/welcome_message.dart';
@@ -17,7 +17,7 @@ import 'package:frontend/providers/user_provider.dart';
 import 'package:get/get.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 
-import '../../components/section_header.dart';
+import '../../components/common/section_header.dart';
 import '../profile/profile_page.dart';
 
 class HomePage extends GetView<HomeController> {
@@ -29,7 +29,7 @@ class HomePage extends GetView<HomeController> {
     Get.lazyPut(() => ProfileController());
     return Scaffold(
       key: appProvider.scaffoldKey,
-      appBar: const CustomAppbar(),
+      appBar: const MainAppbar(),
       body: PageView(
         controller: controller.pageController,
         onPageChanged: (index) {

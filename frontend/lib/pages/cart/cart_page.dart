@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/components/cart/cart_list.dart';
 import 'package:frontend/components/cart/purchase_panel.dart';
-import 'package:frontend/components/page_header.dart';
+import 'package:frontend/components/common/page_header.dart';
 import 'package:frontend/constants.dart';
 import 'package:frontend/controllers/user_controller.dart';
 import 'package:get/get.dart';

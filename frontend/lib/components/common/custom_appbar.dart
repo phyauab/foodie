@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/providers/app_provider.dart';
 import 'package:get/get.dart';
-import 'package:provider/provider.dart';
 
-class CustomAppbar extends StatefulWidget implements PreferredSizeWidget {
-  const CustomAppbar({Key? key})
+class MainAppbar extends StatefulWidget implements PreferredSizeWidget {
+  const MainAppbar({Key? key})
       : preferredSize = const Size.fromHeight(kToolbarHeight),
         super(key: key);
 
@@ -12,10 +11,10 @@ class CustomAppbar extends StatefulWidget implements PreferredSizeWidget {
   final Size preferredSize;
 
   @override
-  State<CustomAppbar> createState() => _CustomAppbarState();
+  State<MainAppbar> createState() => _MainAppbarState();
 }
 
-class _CustomAppbarState extends State<CustomAppbar> {
+class _MainAppbarState extends State<MainAppbar> {
   final appProvider = Get.put(AppProvider());
 
   @override

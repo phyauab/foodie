@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:frontend/components/loading.dart';
+import 'package:frontend/components/common/loading.dart';
 
-import 'package:frontend/components/long_button.dart';
+import 'package:frontend/components/common/long_button.dart';
 import 'package:frontend/constants.dart';
 import 'package:frontend/helpers/helper.dart';
 import 'package:frontend/pages/cart/cart_controller.dart';

@@ -35,7 +35,9 @@ class Menu extends StatelessWidget {
         iconData: Icons.update,
         title: "Update Info",
         color: Colors.blue,
-        func: () {},
+        func: () {
+          Get.toNamed("/updateInfo");
+        },
       ),
       MenuItem(
         iconData: Icons.logout,
