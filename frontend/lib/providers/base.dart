@@ -1,12 +1,13 @@
 import 'package:get/get.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 class BaseProvider extends GetConnect {
   final storage = new FlutterSecureStorage();
 
   @override
   void onInit() {
-    httpClient.baseUrl = 'http://10.0.2.2:3000/';
+    httpClient.baseUrl = dotenv.env['API_ENDPOINT'];
 
     httpClient.addAuthenticator<void>((request) async {
       String? token = await storage.read(key: 'token');

@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/constants.dart';
-import 'package:frontend/models/user.dart';
 import 'package:frontend/pages/login/login_controller.dart';
-import 'package:frontend/providers/user_provider.dart';
 import 'package:get/get.dart';
-import 'package:provider/provider.dart';
 
 class LoginPage extends GetView<LoginController> {
   LoginPage({Key? key}) : super(key: key);

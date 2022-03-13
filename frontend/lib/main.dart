@@ -19,11 +19,11 @@ import 'package:frontend/pages/login/login_binding.dart';
 import 'package:frontend/pages/login/login_screen.dart';
 import 'package:frontend/pages/register/register_binding.dart';
 import 'package:frontend/pages/register/register_page.dart';
-import 'package:frontend/pages/wallet/wallet_page.dart';
-import 'package:frontend/providers/user_provider.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get/get.dart';
 
-void main() {
+Future main() async {
+  await dotenv.load(fileName: "config.env");
   runApp(MyApp());
 }
 
