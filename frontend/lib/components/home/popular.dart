@@ -32,34 +32,30 @@ class PopularFoodItems extends StatelessWidget {
             ),
           ),
         ),
-        Padding(
-          padding: EdgeInsets.only(left: defaultScreenPadding),
-          child: SizedBox(
-            height: 240,
-            child: FutureBuilder(
-              builder: (context, AsyncSnapshot snapshot) {
-                if (snapshot.hasData) {
-                  return ListView.separated(
-                      physics: const ClampingScrollPhysics(),
-                      shrinkWrap: true,
-                      scrollDirection: Axis.horizontal,
-                      itemBuilder: (BuildContext context, int index) =>
-                          FoodCard(
-                            foodItem: snapshot.data[index],
-                          ),
-                      separatorBuilder: (BuildContext context, int index) =>
-                          const SizedBox(
-                            width: 15,
-                          ),
-                      itemCount: snapshot.data.length);
-                } else if (snapshot.hasError) {
-                  return const Text("something has gone wrong");
-                } else {
-                  return const Loading();
-                }
-              },
-              future: fetchPopularFoodItems,
-            ),
+        SizedBox(
+          height: 240,
+          child: FutureBuilder(
+            builder: (context, AsyncSnapshot snapshot) {
+              if (snapshot.hasData) {
+                return ListView.separated(
+                    physics: const ClampingScrollPhysics(),
+                    shrinkWrap: true,
+                    scrollDirection: Axis.horizontal,
+                    itemBuilder: (BuildContext context, int index) => FoodCard(
+                          foodItem: snapshot.data[index],
+                        ),
+                    separatorBuilder: (BuildContext context, int index) =>
+                        const SizedBox(
+                          width: 0,
+                        ),
+                    itemCount: snapshot.data.length);
+              } else if (snapshot.hasError) {
+                return const Text("something has gone wrong");
+              } else {
+                return const Loading();
+              }
+            },
+            future: fetchPopularFoodItems,
           ),
         ),
       ],

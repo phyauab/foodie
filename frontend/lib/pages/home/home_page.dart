@@ -82,9 +82,9 @@ class HomePage extends GetView<HomeController> {
           ),
           PopularFoodItems(
               fetchPopularFoodItems: controller.fetchPopularFoodItems()),
-          const SizedBox(
-            height: 20,
-          ),
+          // const SizedBox(
+          //   height: 20,
+          // ),
         ],
       ),
     );
