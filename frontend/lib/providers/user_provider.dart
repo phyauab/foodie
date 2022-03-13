@@ -9,6 +9,7 @@ class UserProvider extends BaseProvider {
 
     if (response.statusCode == 200) {
       User user = User.fromJson(response.body);
+      storage.write(key: "token", value: user.token);
       return user;
     }
     return null;
