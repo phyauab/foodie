@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:frontend/components/counter.dart';
+import 'package:frontend/components/common/counter.dart';
 import 'package:frontend/helpers/helper.dart';
 
 import '../../constants.dart';

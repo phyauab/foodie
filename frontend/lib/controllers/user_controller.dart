@@ -1,3 +1,4 @@
+import 'package:frontend/providers/app_provider.dart';
 import 'package:frontend/providers/user_provider.dart';
 import 'package:get/get.dart';
 
@@ -5,6 +6,7 @@ import '../models/user.dart';
 
 class UserController extends GetxController {
   final _userProvider = Get.put(UserProvider());
+  final _appProvider = Get.put(AppProvider());
   Rx<User?> user = Rxn<User>();
   var isLoggedIn = false.obs;
 
@@ -18,6 +20,7 @@ class UserController extends GetxController {
     user.value = await _userProvider.login(username, password);
     if (user.value != null) {
       isLoggedIn.value = true;
+      _appProvider.closeDrawer();
       return true;
     }
     return false;
@@ -27,6 +30,7 @@ class UserController extends GetxController {
     _userProvider.logout();
     user.value = null;
     isLoggedIn.value = false;
+    _appProvider.closeDrawer();
   }
 
   Future<bool> register(String username, String password, String email) async {
