@@ -2,6 +2,8 @@ const express = require("express");
 const router = new express.Router();
 const Food = require("../models/food");
 const Category = require("../models/category");
+const Restaurant = require("../models/restaurant");
+const Location = require("../models/location");
 const { Op } = require("sequelize");
 
 // Create
@@ -36,7 +38,10 @@ router.get("/food?", async (req, res) => {
         filter.popular = Boolean(req.query.popular);
       }
     }
-    const food = await Food.findAll({ where: filter, include: [Category] });
+    const food = await Food.findAll({
+      where: filter,
+      include: [Category],
+    });
     res.send(food);
   } catch (e) {
     res.status(400).send(e);
@@ -47,7 +52,7 @@ router.get("/food/:id", async (req, res) => {
   try {
     const food = await Food.findOne({
       where: { id: req.params.id },
-      include: [Category],
+      include: [Category, { model: Restaurant, include: [Location] }],
     });
     if (food == null) {
       throw "Error: item not found";
@@ -95,6 +100,10 @@ router.post("/food/getByCategory", async (req, res) => {
           model: Category,
           required: true,
           where: { [Op.or]: filter },
+        },
+        {
+          model: Restaurant,
+          include: [Location],
         },
       ],
     });

@@ -32,6 +32,14 @@ class Menu extends StatelessWidget {
         },
       ),
       MenuItem(
+        iconData: Icons.location_city,
+        title: "My Wallet",
+        color: Colors.green,
+        func: () {
+          Get.toNamed("/wallet");
+        },
+      ),
+      MenuItem(
         iconData: Icons.update,
         title: "Update Info",
         color: Colors.blue,
@@ -46,21 +54,61 @@ class Menu extends StatelessWidget {
         func: _userController.logout,
       ),
     ];
-    return Expanded(
-      child: SizedBox(
+    return SizedBox(
         width: MediaQuery.of(context).size.width * longButtonToScreenRatio,
-        child: ListView.separated(
-            physics: const NeverScrollableScrollPhysics(),
-            itemBuilder: (context, index) {
-              return menuItems[index];
-            },
-            separatorBuilder: (context, index) {
-              return const SizedBox(
-                height: 10,
-              );
-            },
-            itemCount: menuItems.length),
-      ),
-    );
+        child: Column(
+          children: [
+            MenuItem(
+              iconData: Icons.library_books,
+              title: "Records",
+              color: Colors.red,
+              func: () {
+                Get.toNamed("/orderRecords");
+              },
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            MenuItem(
+              iconData: Icons.account_balance_wallet,
+              title: "My Wallet",
+              color: Colors.orange,
+              func: () {
+                Get.toNamed("/wallet");
+              },
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            MenuItem(
+              iconData: Icons.location_city,
+              title: "My Locations",
+              color: Colors.green,
+              func: () {
+                Get.toNamed("/wallet");
+              },
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            MenuItem(
+              iconData: Icons.update,
+              title: "Update Info",
+              color: Colors.blue,
+              func: () {
+                Get.toNamed("/updateInfo");
+              },
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            MenuItem(
+              iconData: Icons.logout,
+              title: "Logout",
+              color: Colors.purple,
+              func: _userController.logout,
+            ),
+          ],
+        ));
   }
 }

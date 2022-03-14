@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:frontend/components/common/custom_appbar.dart';
 import 'package:frontend/components/common/custom_bottom_navigation_bar.dart';
 import 'package:frontend/components/common/custom_drawer.dart';
+import 'package:frontend/components/map/map.dart';
 import 'package:frontend/components/home/carousel.dart';
 import 'package:frontend/components/home/popular.dart';
 import 'package:frontend/components/home/welcome_message.dart';
@@ -58,6 +59,11 @@ class HomePage extends GetView<HomeController> {
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          // ElevatedButton(
+          //     onPressed: () {
+          //       Get.to(MyMap());
+          //     },
+          //     child: Text("map")),
           const WelcomeMessage(),
           const SizedBox(
             height: 20,

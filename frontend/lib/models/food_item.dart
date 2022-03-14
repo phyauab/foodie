@@ -1,16 +1,9 @@
+import 'dart:convert';
+
 import 'package:frontend/models/category.dart';
+import 'package:frontend/models/restaurant.dart';
 
 class FoodItem {
-  final int id;
-  final String name;
-  final double price;
-  final double rating;
-  final String imagePath;
-  final int minCookingTime;
-  final int maxCookingTime;
-  final String description;
-  final List<Category> categories;
-
   FoodItem(
       {required this.id,
       required this.name,
@@ -20,7 +13,19 @@ class FoodItem {
       required this.minCookingTime,
       required this.maxCookingTime,
       required this.description,
-      required this.categories});
+      required this.categories,
+      required this.restaurant});
+
+  final int id;
+  final String name;
+  final double price;
+  final double rating;
+  final String imagePath;
+  final int minCookingTime;
+  final int maxCookingTime;
+  final String description;
+  final List<Category> categories;
+  Restaurant? restaurant;
 
   factory FoodItem.fromJson(Map<String, dynamic> json) {
     return FoodItem(
@@ -34,6 +39,9 @@ class FoodItem {
       description: json['description'],
       categories: List<Category>.from(
           json["Categories"].map((x) => Category.fromJson(x))),
+      restaurant: json["Restaurant"] == null
+          ? null
+          : Restaurant.fromJson(json["Restaurant"]),
     );
   }
 }

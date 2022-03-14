@@ -1,8 +1,8 @@
 const { Sequelize, DataTypes } = require("sequelize");
 const sequelize = require("../db/sequelize");
 
-const Restaurant = sequelize.define(
-  "Restaurant",
+const Location = sequelize.define(
+  "Location",
   {
     id: {
       type: DataTypes.INTEGER,
@@ -14,10 +14,18 @@ const Restaurant = sequelize.define(
       type: DataTypes.STRING,
       allowNull: false,
     },
+    longitude: {
+      type: DataTypes.DOUBLE,
+      allowNull: false,
+    },
+    latitude: {
+      type: DataTypes.DOUBLE,
+      allowNull: false,
+    },
   },
   {
     freezeTableName: true,
   }
 );
 
-module.exports = Restaurant;
+module.exports = Location;

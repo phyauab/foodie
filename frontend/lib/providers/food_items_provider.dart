@@ -1,4 +1,5 @@
 import 'package:frontend/models/food_item.dart';
+import 'package:frontend/models/restaurant.dart';
 import 'package:frontend/providers/base.dart';
 
 class FoodItemsProvider extends BaseProvider {

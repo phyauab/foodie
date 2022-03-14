@@ -2,6 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:frontend/components/common/loading.dart';
 
 import 'package:frontend/components/common/long_button.dart';
+import 'package:frontend/components/common/section_header.dart';
+import 'package:frontend/components/food_item/cartegory_chips.dart';
+import 'package:frontend/components/food_item/embedded_map.dart';
+import 'package:frontend/components/food_item/info_row.dart';
 import 'package:frontend/constants.dart';
 import 'package:frontend/helpers/helper.dart';
 import 'package:frontend/pages/cart/cart_controller.dart';
@@ -14,230 +18,217 @@ class FoodItemPage extends GetView<FoodItemController> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        extendBodyBehindAppBar: true,
-        appBar: _buildAppbar(context),
-        body: SingleChildScrollView(
-          child: controller.obx(
-            (state) => _buildDetail(context),
-            onLoading: const Loading(),
-            onEmpty: ListView(
-              children: const [
-                Padding(
-                  padding: EdgeInsets.all(20),
-                  child: Center(
-                    child: Text('No categories found, pull to refresh...'),
-                  ),
-                ),
-              ],
-            ),
-            onError: (error) => ListView(
-              children: const [
-                Padding(
-                  padding: EdgeInsets.all(20),
-                  child: Center(
-                    child: Text('An error occured, pull to refresh...'),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ));
-  }
+    // return Scaffold(
+    //   extendBodyBehindAppBar: true,
+    //   appBar: _buildAppbar(context),
+    //   body: SingleChildScrollView(
+    //     child: controller.obx(
+    //       (state) => _buildDetail(context),
+    //       onLoading: const Loading(),
+    //       onEmpty: ListView(
+    //         children: const [
+    //           Padding(
+    //             padding: EdgeInsets.all(20),
+    //             child: Center(
+    //               child: Text('No categories found, pull to refresh...'),
+    //             ),
+    //           ),
+    //         ],
+    //       ),
+    //       onError: (error) => ListView(
+    //         children: const [
+    //           Padding(
+    //             padding: EdgeInsets.all(20),
+    //             child: Center(
+    //               child: Text('An error occured, pull to refresh...'),
+    //             ),
+    //           ),
+    //         ],
+    //       ),
+    //     ),
+    //   ),
+    // );
 
-  AppBar _buildAppbar(BuildContext context) {
-    return AppBar(
-      backgroundColor: Colors.transparent,
-      elevation: 0,
-      leading: IconButton(
-        icon: const Icon(
-          Icons.arrow_back_ios,
-          color: Colors.white,
+    return Scaffold(
+      body: controller.obx(
+        (state) => _buildBody(context),
+        onLoading: const Loading(),
+        onEmpty: ListView(
+          children: const [
+            Padding(
+              padding: EdgeInsets.all(20),
+              child: Center(
+                child: Text('No categories found, pull to refresh...'),
+              ),
+            ),
+          ],
         ),
-        onPressed: () {
-          Navigator.pop(context);
-        },
+        onError: (error) => ListView(
+          children: const [
+            Padding(
+              padding: EdgeInsets.all(20),
+              child: Center(
+                child: Text('An error occured, pull to refresh...'),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
 
-  SizedBox _buildCategoryChips() {
-    return SizedBox(
-      height: 50,
-      child: ListView.separated(
-          scrollDirection: Axis.horizontal,
-          itemBuilder: (_, i) => Chip(
-              label: Text(
-                  capitalize(controller.foodItem.value!.categories[i].name))),
-          separatorBuilder: (BuildContext context, int i) => const SizedBox(
-                width: 10,
-              ),
-          itemCount: controller.foodItem.value!.categories.length),
-    );
-  }
-
-  Widget _buildDetail(BuildContext context) {
-    return SizedBox(
-      height: MediaQuery.of(context).size.height,
-      child: Stack(
-        children: [
-          // Image
-          SizedBox(
-            width: MediaQuery.of(context).size.width,
-            child: Image(
+  Widget _buildBody(BuildContext context) {
+    return CustomScrollView(
+      slivers: [
+        SliverAppBar(
+          pinned: true,
+          floating: false,
+          snap: false,
+          expandedHeight: 270.0,
+          flexibleSpace: FlexibleSpaceBar(
+            background: Image(
               image: NetworkImage(
                 controller.foodItem.value!.imagePath,
               ),
               fit: BoxFit.fitWidth,
               filterQuality: FilterQuality.high,
             ),
+            stretchModes: [StretchMode.zoomBackground],
           ),
-
-          // white panel
-          Positioned(
-            bottom: 0,
-            left: 0,
-            child: Container(
-              height: MediaQuery.of(context).size.height * 0.6,
-              width: MediaQuery.of(context).size.width,
-              decoration: const BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(25),
-                  topRight: Radius.circular(25),
-                ),
-              ),
-              child: Padding(
-                padding:
-                    EdgeInsets.symmetric(horizontal: defaultScreenPadding * 2),
-                child: SingleChildScrollView(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+          leading: IconButton(
+            icon: const Icon(
+              Icons.arrow_back_ios,
+              color: Colors.white,
+            ),
+            onPressed: () {
+              Get.back();
+            },
+          ),
+        ),
+        SliverList(
+          delegate: SliverChildListDelegate([
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: defaultScreenPadding),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
+                          Text(capitalize(controller.foodItem.value!.name),
+                              style: const TextStyle(
+                                  fontSize: 36, fontWeight: FontWeight.w500)),
+                          // restaurant
+                          Row(
                             children: [
-                              Text(capitalize(controller.foodItem.value!.name),
-                                  style: const TextStyle(
-                                      fontSize: 36,
-                                      fontWeight: FontWeight.w500)),
-                              // restaurant
+                              const Icon(Icons.restaurant,
+                                  color: Colors.grey, size: 14),
+                              const SizedBox(
+                                width: 5,
+                              ),
                               Text(
-                                'Good Restaurant',
+                                controller.foodItem.value!.restaurant != null
+                                    ? controller
+                                        .foodItem.value!.restaurant!.name
+                                    : 'Foodie',
                                 style: Theme.of(context).textTheme.caption,
                               ),
                             ],
                           ),
-                          Text(
-                            "\$${controller.foodItem.value!.price.toString()}",
-                            style: TextStyle(
-                                color: Theme.of(context).primaryColor,
-                                fontSize: 28,
-                                fontWeight: FontWeight.w600),
-                          )
                         ],
                       ),
-                      const SizedBox(
-                        height: 15,
-                      ),
-                      _buildCategoryChips(),
-                      const SizedBox(
-                        height: 15,
-                      ),
-                      _buildHorizontalInfo(context),
-                      const SizedBox(
-                        height: 15,
-                      ),
-                      ReadMoreText(
-                        controller.foodItem.value!.description,
-                        trimLines: 3,
-                        style:
-                            const TextStyle(color: Colors.black, height: 1.5),
-                        colorClickableText: Colors.pink,
-                        trimMode: TrimMode.Line,
-                        trimCollapsedText: 'Show more',
-                        trimExpandedText: 'Show less',
-                        moreStyle: const TextStyle(
-                            fontSize: 14, fontWeight: FontWeight.bold),
-                        lessStyle: const TextStyle(
-                            fontSize: 14, fontWeight: FontWeight.bold),
-                      ),
-                      const SizedBox(
-                        height: 15,
-                      ),
-                      _buildCounter(context),
-                      const SizedBox(
-                        height: 15,
-                      ),
-                      LongButton(
-                          text: 'Add To Cart',
-                          icon: Icons.shopping_cart,
-                          func: () {
-                            controller.addToCart();
-                            const snackBar = SnackBar(
-                              content: Text('Item added!'),
-                            );
-
-                            ScaffoldMessenger.of(context)
-                                .showSnackBar(snackBar);
-
-                            final cartController = Get.put(CartController());
-                            cartController.fetchCartItems();
-                            Get.back();
-                          }),
-                      const SizedBox(
-                        height: 15,
-                      ),
+                      Text(
+                        "\$${controller.foodItem.value!.price.toString()}",
+                        style: TextStyle(
+                            color: Theme.of(context).primaryColor,
+                            fontSize: 28,
+                            fontWeight: FontWeight.w600),
+                      )
                     ],
                   ),
-                ),
+                  const SizedBox(
+                    height: 15,
+                  ),
+                  CategoryChips(
+                      categories: controller.foodItem.value!.categories),
+                  const SizedBox(
+                    height: 15,
+                  ),
+                  InfoRow(
+                    rating: controller.foodItem.value!.rating,
+                    minCookingTime: controller.foodItem.value!.minCookingTime,
+                    maxCookingTime: controller.foodItem.value!.maxCookingTime,
+                  ),
+                  const SizedBox(
+                    height: 15,
+                  ),
+                  const SectionHeader(title: "Description"),
+                  const SizedBox(
+                    height: 15,
+                  ),
+                  ReadMoreText(
+                    controller.foodItem.value!.description,
+                    trimLines: 3,
+                    style: const TextStyle(color: Colors.black, height: 1.5),
+                    colorClickableText: Colors.pink,
+                    trimMode: TrimMode.Line,
+                    trimCollapsedText: 'Show more',
+                    trimExpandedText: 'Show less',
+                    moreStyle: const TextStyle(
+                        fontSize: 14, fontWeight: FontWeight.bold),
+                    lessStyle: const TextStyle(
+                        fontSize: 14, fontWeight: FontWeight.bold),
+                  ),
+                  if (controller.foodItem.value!.restaurant != null) ...[
+                    const SizedBox(
+                      height: 15,
+                    ),
+                    const SectionHeader(title: "Location"),
+                    const SizedBox(
+                      height: 15,
+                    ),
+                    EmbededMap(
+                      latitude: controller
+                          .foodItem.value!.restaurant!.location.latitude,
+                      longitude: controller
+                          .foodItem.value!.restaurant!.location.longitude,
+                    )
+                  ],
+                  const SizedBox(
+                    height: 15,
+                  ),
+                  _buildCounter(context),
+                  const SizedBox(
+                    height: 15,
+                  ),
+                  LongButton(
+                      text: 'Add To Cart',
+                      icon: Icons.shopping_cart,
+                      func: () {
+                        controller.addToCart();
+                        const snackBar = SnackBar(
+                          content: Text('Item added!'),
+                        );
+
+                        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+
+                        final cartController = Get.put(CartController());
+                        cartController.fetchCartItems();
+                        Get.back();
+                      }),
+                  const SizedBox(
+                    height: 15,
+                  ),
+                ],
               ),
             ),
-          )
-        ],
-      ),
-    );
-  }
-
-  Widget _buildHorizontalInfo(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: [
-        Row(
-          children: [
-            const Icon(
-              Icons.star,
-              color: Colors.yellow,
-            ),
-            const SizedBox(
-              width: 5,
-            ),
-            Text(
-              "${controller.foodItem.value!.rating}/5",
-              style: const TextStyle(fontWeight: FontWeight.w600),
-            )
-          ],
-        ),
-        Row(
-          children: [
-            const Icon(
-              Icons.lock_clock,
-              color: Colors.orange,
-            ),
-            const SizedBox(
-              width: 5,
-            ),
-            Text(
-              "${controller.foodItem.value!.minCookingTime} - ${controller.foodItem.value!.maxCookingTime} mins",
-              style: const TextStyle(fontWeight: FontWeight.w600),
-            )
-          ],
+          ]),
         )
       ],
     );

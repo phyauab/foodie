@@ -3,6 +3,8 @@ const Food = require("../food");
 const User = require("../user");
 const CartItem = require("../cartItem");
 const Transaction = require("../transaction");
+const Location = require("../location");
+const Restaurant = require("../restaurant");
 const sequelize = require("../../db/sequelize");
 
 function defineRelationships() {
@@ -20,12 +22,25 @@ function defineRelationships() {
   // );
   // Food.belongsToMany(CartItem, { through: CartItem_Food });
 
+  // Food | restaurant
+  Restaurant.hasMany(Food);
+  Food.belongsTo(Restaurant);
+
+  // Food | cart
   Food.hasMany(CartItem);
   CartItem.belongsTo(Food);
 
   // transaction
   User.hasMany(Transaction);
   Transaction.belongsTo(User);
+
+  // location | user
+  User.hasMany(Location);
+  Location.belongsTo(User);
+
+  // location | restaurant
+  Restaurant.hasOne(Location);
+  Location.belongsTo(Restaurant);
 }
 
 module.exports = defineRelationships;

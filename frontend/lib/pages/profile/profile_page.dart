@@ -27,7 +27,7 @@ class ProfilePage extends GetView<ProfileController> {
   }
 
   Widget _buildProfile(BuildContext context) {
-    return Center(
+    return SingleChildScrollView(
       child: Column(
         children: [
           Info(

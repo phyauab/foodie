@@ -2,6 +2,7 @@ const express = require("express");
 const router = new express.Router();
 const User = require("../models/user");
 const CartItem = require("../models/cartItem");
+const Location = require("../models/location");
 const jwt = require("jsonwebtoken");
 const auth = require("../middlewares/auth");
 const validator = require("validator");
@@ -47,7 +48,7 @@ router.post("/users/login", async (req, res) => {
 });
 
 // Read
-router.get("/users/all", async (req, res) => {
+router.get("/users", async (req, res) => {
   try {
     const users = await User.findAll();
     res.send(users);
@@ -61,6 +62,18 @@ router.get("/users/getMe", auth, async (req, res) => {
     res.send(req.user);
   } catch (e) {
     res.status(400).send(e);
+  }
+});
+
+// GET: user's locations
+router.get("/users/locations", auth, async (req, res) => {
+  try {
+    const locations = await Location.findAll({
+      where: { UserId: req.user.id },
+    });
+    res.send(locations);
+  } catch (e) {
+    res.send(e);
   }
 });
 
