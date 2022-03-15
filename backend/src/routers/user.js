@@ -3,6 +3,7 @@ const router = new express.Router();
 const User = require("../models/user");
 const CartItem = require("../models/cartItem");
 const Location = require("../models/location");
+const Address = require("../models/address");
 const jwt = require("jsonwebtoken");
 const auth = require("../middlewares/auth");
 const validator = require("validator");
@@ -47,6 +48,19 @@ router.post("/users/login", async (req, res) => {
   }
 });
 
+// POST: user address
+router.post("/users/addresses", auth, async (req, res) => {
+  try {
+    const address = await Address.create(req.body);
+    if (!address) throw "Error: Create address fails";
+
+    address.setUser(req.user);
+    res.send(address);
+  } catch (e) {
+    res.status(400).send(e);
+  }
+});
+
 // Read
 router.get("/users", async (req, res) => {
   try {
@@ -74,6 +88,27 @@ router.get("/users/locations", auth, async (req, res) => {
     res.send(locations);
   } catch (e) {
     res.send(e);
+  }
+});
+
+// GET: user's addresses
+router.get("/users/addresses", auth, async (req, res) => {
+  try {
+    const addresses = await Address.findAll({ where: { UserId: req.user.id } });
+    res.send(addresses);
+  } catch (e) {
+    res.status(400).send(e);
+  }
+});
+
+// GET: user's address
+router.get("/users/addresses/:id", auth, async (req, res) => {
+  try {
+    const address = await Address.findOne({ where: { UserId: req.user.id } });
+    if (!address) throw "Error: Failed to find address";
+    res.send(address);
+  } catch (e) {
+    res.status(400).send(e);
   }
 });
 

@@ -49,4 +49,17 @@ router.get("/locations/:id", auth, async (req, res) => {
   }
 });
 
+// DELETE
+router.delete("/locations/:id", auth, async (req, res) => {
+  try {
+    const location = await Location.destroy({
+      where: { id: req.params.id, UserId: req.user.id },
+    });
+    if (!location) throw "Error: Delete Location Fails";
+    res.send("Delete location successfully");
+  } catch (e) {
+    res.status(400).send(e);
+  }
+});
+
 module.exports = router;

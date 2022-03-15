@@ -5,6 +5,7 @@ const CartItem = require("../cartItem");
 const Transaction = require("../transaction");
 const Location = require("../location");
 const Restaurant = require("../restaurant");
+const Address = require("../address");
 const sequelize = require("../../db/sequelize");
 
 function defineRelationships() {
@@ -41,6 +42,10 @@ function defineRelationships() {
   // location | restaurant
   Restaurant.hasOne(Location);
   Location.belongsTo(Restaurant);
+
+  // Address | user
+  User.hasMany(Address);
+  Address.belongsTo(User);
 }
 
 module.exports = defineRelationships;

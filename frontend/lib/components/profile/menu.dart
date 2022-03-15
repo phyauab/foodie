@@ -82,10 +82,10 @@ class Menu extends StatelessWidget {
             ),
             MenuItem(
               iconData: Icons.location_city,
-              title: "My Locations",
+              title: "My Addresses",
               color: Colors.green,
               func: () {
-                Get.toNamed("/wallet");
+                Get.toNamed("/address");
               },
             ),
             const SizedBox(

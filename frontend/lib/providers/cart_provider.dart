@@ -1,12 +1,7 @@
-import 'dart:convert';
-
 import 'package:frontend/controllers/user_controller.dart';
 import 'package:frontend/models/cart_item.dart';
-import 'package:frontend/models/user.dart';
 import 'package:frontend/providers/base.dart';
-import 'package:frontend/providers/user_provider.dart';
 import 'package:get/get.dart';
-import 'package:http/http.dart' as http;
 
 class CartProvider extends BaseProvider {
   final _userController = Get.put(UserController());
