@@ -80,6 +80,20 @@ class UserProvider extends BaseProvider {
     return null;
   }
 
+  Future<bool> updateAddress(int id, String name, String room, String floor,
+      String building, String street, String district) async {
+    Map<String, String> body = {
+      "name": name,
+      "room": room,
+      "floor": floor,
+      "building": building,
+      "street": street,
+      "district": district
+    };
+    final response = await patch("users/addresses/${id}", body);
+    return response.status.code == 200;
+  }
+
   void logout() {
     removeToken();
   }

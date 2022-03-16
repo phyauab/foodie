@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/components/common/long_button.dart';
 import 'package:frontend/components/common/simple_appbar.dart';
-import 'package:frontend/constants.dart';
-import 'package:frontend/pages/add_address/add_address_controller.dart';
 import 'package:get/get.dart';
 
-class AddAddressPage extends GetView<AddAddressController> {
+import '../../constants.dart';
+import 'update_address_controller.dart';
+
+class UpdateAddressPage extends GetView<UpdateAddressController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: SimpleAppbar(title: "Add Address"),
+      appBar: SimpleAppbar(title: "Update Address"),
       body: SingleChildScrollView(
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: defaultScreenPadding),
@@ -88,10 +89,10 @@ class AddAddressPage extends GetView<AddAddressController> {
                   text: "Confirm",
                   icon: Icons.check,
                   func: () async {
-                    bool isSuccess = await controller.addAddress();
+                    bool isSuccess = await controller.updateAddress();
                     if (isSuccess) {
                       final snackBar = SnackBar(
-                        content: const Text('Address added successfully'),
+                        content: const Text('Address updated successfully'),
                         action: SnackBarAction(
                           label: 'I got it',
                           onPressed: () {
@@ -104,7 +105,7 @@ class AddAddressPage extends GetView<AddAddressController> {
                       return;
                     }
                     final snackBar = SnackBar(
-                      content: const Text('Failed to add address'),
+                      content: const Text('Failed to update address'),
                       action: SnackBarAction(
                         label: 'I got it',
                         onPressed: () {

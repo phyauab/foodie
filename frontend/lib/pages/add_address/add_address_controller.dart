@@ -1,8 +1,4 @@
 import 'package:flutter/cupertino.dart';
-import 'package:frontend/controllers/user_controller.dart';
-import 'package:frontend/pages/cart/cart_controller.dart';
-import 'package:frontend/pages/wallet/wallet_controller.dart';
-import 'package:frontend/providers/transaction_provider.dart';
 import 'package:frontend/providers/user_provider.dart';
 import 'package:get/get.dart';
 

@@ -104,7 +104,7 @@ router.get("/users/addresses", auth, async (req, res) => {
 // GET: user's address
 router.get("/users/addresses/:id", auth, async (req, res) => {
   try {
-    const address = await Address.findOne({ where: { UserId: req.user.id } });
+    const address = await Address.findOne({ where: { id: req.params.id } });
     if (!address) throw "Error: Failed to find address";
     res.send(address);
   } catch (e) {
@@ -149,6 +149,18 @@ router.patch("/users/:id", auth, async (req, res) => {
     await user.save();
 
     return res.send(user);
+  } catch (e) {
+    res.status(400).send(e);
+  }
+});
+
+router.patch("/users/addresses/:id", auth, async (req, res) => {
+  try {
+    const address = await Address.update(req.body, {
+      where: { id: req.params.id },
+    });
+    if (!address) throw "Error: Failed to update address";
+    res.send(address);
   } catch (e) {
     res.status(400).send(e);
   }

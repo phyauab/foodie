@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/models/address.dart';
+import 'package:get/get.dart';
 
 class AddressTile extends StatelessWidget {
   const AddressTile({Key? key, required this.address}) : super(key: key);
@@ -10,6 +11,9 @@ class AddressTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       child: ListTile(
+        onTap: () {
+          Get.toNamed("/updateAddress/${address.id}");
+        },
         leading: const CircleAvatar(
           child: Icon(
             Icons.location_on,
@@ -17,7 +21,13 @@ class AddressTile extends StatelessWidget {
           ),
         ),
         title: Text(address.name),
-        trailing: Icon(Icons.more_vert),
+        trailing: IconButton(
+          icon: Icon(
+            Icons.delete,
+            color: Colors.red,
+          ),
+          onPressed: () {},
+        ),
       ),
     );
   }

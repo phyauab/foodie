@@ -30,13 +30,15 @@ class ProfilePage extends GetView<ProfileController> {
     return SingleChildScrollView(
       child: Column(
         children: [
+          const SizedBox(height: 20),
           Info(
             username: _userController.user.value!.username,
             email: _userController.user.value!.email,
             balance: _userController.user.value!.balance,
           ),
           const SizedBox(height: 20),
-          Menu()
+          Menu(),
+          const SizedBox(height: 20),
         ],
       ),
     );
