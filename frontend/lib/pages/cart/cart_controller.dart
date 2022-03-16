@@ -76,7 +76,8 @@ class CartController extends GetxController with StateMixin<List<CartItem>> {
   void updateIsMakePaymentDisabled() {
     if (_userController.user.value != null) {
       isMakePaymentDisabled.value =
-          _userController.user.value!.balance < total.value;
+          _userController.user.value!.balance < total.value ||
+              cartItems.isEmpty;
     } else {
       isMakePaymentDisabled.value = true;
     }

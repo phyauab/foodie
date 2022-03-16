@@ -32,7 +32,9 @@ class CartPage extends GetView<CartController> {
                 total: controller.total.value,
                 makePayment: controller.isMakePaymentDisabled.value
                     ? null
-                    : controller.makePayment,
+                    : () {
+                        Get.toNamed("/payment");
+                      },
               ),
             )
           ]

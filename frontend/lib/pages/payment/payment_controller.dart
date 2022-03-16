@@ -1,32 +1,36 @@
-import 'package:frontend/providers/user_provider.dart';
+import 'package:frontend/pages/cart/cart_controller.dart';
 import 'package:get/get.dart';
 
 import '../../models/address.dart';
+import '../../providers/user_provider.dart';
 
-class AddressController extends GetxController with StateMixin<List<Address>> {
+class PaymentController extends GetxController with StateMixin<List<Address>> {
   final _userProvider = Get.put(UserProvider());
+  final _cartController = Get.put(CartController());
+  var selectedAddress = 0.obs;
   List<Address> addresses = <Address>[].obs;
-  var numOfAddress = 0.obs;
 
   @override
-  void onInit() async {
-    await fetchAddresses();
+  void onInit() {
     super.onInit();
+    fetchAddresses();
   }
 
   Future<void> fetchAddresses() async {
     change(addresses, status: RxStatus.loading());
     addresses = await _userProvider.fetchAddresses();
     if (addresses.isNotEmpty) {
-      _updateNumOfAddress();
       change(addresses, status: RxStatus.success());
     } else {
       change(addresses, status: RxStatus.empty());
     }
   }
 
-  void _updateNumOfAddress() {
-    print("_updateNumOfAddress: ${addresses.length}");
-    numOfAddress.value = addresses.length;
+  Future<void> makePayment() async {
+    return await _cartController.makePayment();
+  }
+
+  double getTotal() {
+    return _cartController.total.value;
   }
 }

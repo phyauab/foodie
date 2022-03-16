@@ -7,6 +7,8 @@ import '../../constants.dart';
 import 'update_address_controller.dart';
 
 class UpdateAddressPage extends GetView<UpdateAddressController> {
+  const UpdateAddressPage({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

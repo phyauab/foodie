@@ -7,6 +7,8 @@ import 'package:frontend/pages/add_balance/add_balance_page.dart';
 import 'package:frontend/pages/address/address_binding.dart';
 import 'package:frontend/pages/order_record/order_record_binding.dart';
 import 'package:frontend/pages/order_record/order_record_page.dart';
+import 'package:frontend/pages/payment/payment_binding.dart';
+import 'package:frontend/pages/payment/payment_page.dart';
 import 'package:frontend/pages/update_address/update_address_binding.dart';
 import 'package:frontend/pages/update_address/update_address_page.dart';
 import 'package:frontend/pages/update_info/update_info_binding.dart';
@@ -102,6 +104,11 @@ class MyApp extends StatelessWidget {
           name: "/updateAddress/:id",
           page: () => UpdateAddressPage(),
           binding: UpdateAddressBinding(),
+        ),
+        GetPage(
+          name: "/payment",
+          page: () => PaymentPage(),
+          binding: PaymentBinding(),
         )
       ],
       theme: ThemeData(
