@@ -11,10 +11,10 @@ Foodie is a food ordering app built with flutter
 ## Screenshots
 
 **Home**\
-<img src="https://ik.imagekit.io/kni8mpkkuok/home_3GG4Oeu7W.gif?ik-sdk-version=javascript-1.4.3&updatedAt=1648691190238" width="200">
+<img src="https://ik.imagekit.io/kni8mpkkuok/home2_2AIJZCBDt.gif?ik-sdk-version=javascript-1.4.3&updatedAt=1648721941291" width="200">
 
 **Item**\
-<img src="https://ik.imagekit.io/kni8mpkkuok/add_to_cart_u_SKKiAdA.gif?ik-sdk-version=javascript-1.4.3&updatedAt=1648691195779" width="200">
+<img src="https://ik.imagekit.io/kni8mpkkuok/add_to_cart2_pb4QVQ9hk.gif?ik-sdk-version=javascript-1.4.3&updatedAt=1648721927741" width="200">
 
 **Accounts**\
 <img src="https://ik.imagekit.io/kni8mpkkuok/orders_laJlrUsX6.png?ik-sdk-version=javascript-1.4.3&updatedAt=1648691174659" width="200">
