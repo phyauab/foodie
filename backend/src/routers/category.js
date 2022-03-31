@@ -29,7 +29,7 @@ router.get("/categories", async (req, res) => {
     const categoryList = await Category.findAll({ where: filter });
     res.send(categoryList);
   } catch (e) {
-    res.status.send(e);
+    res.status(400).send(e);
   }
 });
 

@@ -33,6 +33,7 @@ Foodie is a food ordering app built with flutter
 ## Installation
 
 **The app is in frontend folder**
+**backend is not needed as it is deployed already**
 
 ```
 cd frontend

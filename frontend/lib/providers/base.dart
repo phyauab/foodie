@@ -7,7 +7,8 @@ class BaseProvider extends GetConnect {
 
   @override
   void onInit() {
-    httpClient.baseUrl = dotenv.env['API_ENDPOINT'];
+    // httpClient.baseUrl = dotenv.env['API_ENDPOINT'];
+    httpClient.baseUrl = "https://shining-reality-345802.df.r.appspot.com/";
 
     httpClient.addAuthenticator<void>((request) async {
       String? token = await storage.read(key: 'token');
